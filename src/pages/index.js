@@ -5,12 +5,17 @@ import Node from "../components/node";
 
 import styles from "../styles/Grid.module.css";
 
-const GRID_COL_LENGTH = 110;
-const GRID_ROW_LENGTH = 35;
-const START_NODE_COL = 10;
-const START_NODE_ROW = 5;
-const FINISH_NODE_COL = 80;
-const FINISH_NODE_ROW = 20;
+// grid size
+const GRID_COL_LENGTH = 25; // 110;
+const GRID_ROW_LENGTH = 10; // 35;
+
+// start node position
+const START_NODE_COL = 2;
+const START_NODE_ROW = 4;
+
+// finish node position
+const FINISH_NODE_COL = 18;
+const FINISH_NODE_ROW = 2;
 
 export default function PathFinder() {
   const [grid, setGrid] = useState([]);
