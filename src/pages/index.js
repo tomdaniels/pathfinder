@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import generateGrid from "../utils/generate-grid";
+import { toggleWalls, generateGrid } from "../utils";
 import { dijkstra } from "../algo/dijkstra";
 import Node from "../components/node";
 
@@ -19,6 +19,7 @@ const FINISH_NODE_ROW = 15;
 
 export default function PathFinder() {
   const [grid, setGrid] = useState([]);
+  const [pressedMouse, setPressedMouse] = useState(false);
 
   function createNode({ col, row }) {
     return {
@@ -63,6 +64,23 @@ export default function PathFinder() {
     animate(visitedNodesInOrder);
   }
 
+  function handleMouseDown(row, col) {
+    console.log("rpowcol", row, col);
+    const _grid = toggleWalls(grid, row, col);
+    setGrid(_grid);
+    setPressedMouse(true);
+  }
+
+  function handleMouseEnter(row, col) {
+    if (!pressedMouse) return;
+    const _grid = toggleWalls(grid, row, col);
+    setGrid(_grid);
+  }
+
+  function handleMouseUp() {
+    setPressedMouse(false);
+  }
+
   return (
     <div className={styles.container}>
       <button onClick={() => visualiseDijkstra()}>
@@ -72,13 +90,19 @@ export default function PathFinder() {
         {grid.map((row, rowIdx) => (
           <div key={rowIdx}>
             {row.map((node, nodeIdx) => {
-              const { isStart, isFinish, isVisited } = node;
+              const { row, col, isStart, isFinish, isVisited, isWall } = node;
               return (
                 <Node
                   key={nodeIdx}
+                  isWall={isWall}
                   isStart={isStart}
                   isFinish={isFinish}
                   isVisited={isVisited}
+                  onMouseDown={handleMouseDown}
+                  onMouseEnter={handleMouseEnter}
+                  onMouseUp={handleMouseUp}
+                  row={row}
+                  col={col}
                 />
               );
             })}
