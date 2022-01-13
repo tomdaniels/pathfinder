@@ -6,39 +6,47 @@ import Node from "../components/node";
 import styles from "../styles/Grid.module.css";
 import nodeStyles from "../styles/Node.module.css";
 
-// grid size
-const GRID_COL_LENGTH = 80;
-const GRID_ROW_LENGTH = 20;
-
-// start node position
+const GRID_ROW_LENGTH = 25;
 const START_NODE_COL = 10;
-const START_NODE_ROW = 10;
-
-// finish node position
-const FINISH_NODE_COL = 65;
-const FINISH_NODE_ROW = 5;
+const START_NODE_ROW = 15;
+const FINISH_NODE_ROW = 10;
 
 export default function PathFinder() {
   const [grid, setGrid] = useState([]);
+  const [finishNodeCol, setFinishNodeCol] = useState(0);
   const [pressedMouse, setPressedMouse] = useState(false);
 
-  function createNode({ col, row }) {
-    return {
-      col,
-      row,
-      isStart: row === START_NODE_ROW && col === START_NODE_COL,
-      isFinish: row === FINISH_NODE_ROW && col === FINISH_NODE_COL,
-      distance: Infinity,
-      isVisited: false,
-      isWall: false,
-      previousNode: null,
+  function createNodeWithFinishCol(finishNodeCol) {
+    return function ({ col, row }) {
+      return {
+        col,
+        row,
+        isStart: row === START_NODE_ROW && col === START_NODE_COL,
+        isFinish: row === FINISH_NODE_ROW && col === finishNodeCol,
+        distance: Infinity,
+        isVisited: false,
+        isWall: false,
+        previousNode: null,
+      };
     };
   }
 
   useEffect(() => {
-    const cells = generateGrid(GRID_ROW_LENGTH, GRID_COL_LENGTH, createNode);
+    // build grid & set finish node using current browser width
+    const GRID_COL_LENGTH = window.innerWidth / 34;
+    const FINISH_NODE_COL = Math.floor(GRID_COL_LENGTH - 10);
+
+    // so our click handlers can access width based column..
+    setFinishNodeCol(FINISH_NODE_COL);
+
+    const cells = generateGrid(
+      GRID_ROW_LENGTH,
+      GRID_COL_LENGTH,
+      createNodeWithFinishCol(FINISH_NODE_COL)
+    );
     setGrid(cells);
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // intentional, once per render.
 
   function animateShortestPath(path) {
     for (let i = 0; i < path.length; i++) {
@@ -73,7 +81,7 @@ export default function PathFinder() {
 
   function visualiseDijkstra() {
     const startNode = grid[START_NODE_ROW][START_NODE_COL];
-    const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
+    const finishNode = grid[FINISH_NODE_ROW][finishNodeCol];
     const visitedNodesInOrder = dijkstra(grid, startNode, finishNode);
     const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
     animate(visitedNodesInOrder, nodesInShortestPathOrder);
@@ -102,7 +110,7 @@ export default function PathFinder() {
       </button>
       <div className={styles.grid}>
         {grid.map((row, rowIdx) => (
-          <div key={rowIdx}>
+          <div key={rowIdx} className={styles.row}>
             {row.map((node, nodeIdx) => {
               const { row, col, isStart, isFinish, isWall } = node;
               return (

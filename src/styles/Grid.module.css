@@ -3,6 +3,13 @@
 }
 
 .grid {
-  margin: 100px 0 0;
+  margin: 40px 0 0;
   text-align: center;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+  flex-wrap: nowrap;
+  flex-shrink: 1;
 }
