@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { toggleWalls, generateGrid } from "../utils";
-import { dijkstra } from "../algo/dijkstra";
+import { dijkstra, getNodesInShortestPathOrder } from "../algo/dijkstra";
 import Node from "../components/node";
 
 import styles from "../styles/Grid.module.css";
@@ -40,17 +40,27 @@ export default function PathFinder() {
     setGrid(cells);
   }, []);
 
-  function animate(visitedNodes) {
-    for (let i = 0; i < visitedNodes.length; i++) {
+  function animateShortestPath(path) {
+    for (let i = 0; i < path.length; i++) {
+      setTimeout(() => {
+        const node = path[i];
+        document.getElementById(
+          `node-${node.row}-${node.col}`
+        ).className = `${nodeStyles.node} ${nodeStyles.nodeShortestPath}`;
+      }, 50 * i);
+    }
+  }
+
+  function animate(visitedNodes, shortestPath) {
+    for (let i = 0; i <= visitedNodes.length; i++) {
+      if (i === visitedNodes.length) {
+        setTimeout(() => {
+          animateShortestPath(shortestPath);
+        }, 10 * i);
+        return;
+      }
       setTimeout(() => {
         const node = visitedNodes[i];
-        const _grid = grid.slice();
-        const _node = {
-          ...node,
-          isVisited: true,
-        };
-
-        _grid[node.row][node.col] = _node;
 
         // this is a lil' gross... bit of a no no but a much better alternative
         // to re-render the entire grid every 10ms.. maybe a ref would be better :thinking:
@@ -65,7 +75,8 @@ export default function PathFinder() {
     const startNode = grid[START_NODE_ROW][START_NODE_COL];
     const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
     const visitedNodesInOrder = dijkstra(grid, startNode, finishNode);
-    animate(visitedNodesInOrder);
+    const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
+    animate(visitedNodesInOrder, nodesInShortestPathOrder);
   }
 
   function handleMouseDown(row, col) {

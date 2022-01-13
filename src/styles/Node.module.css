@@ -13,6 +13,10 @@
   background-color: green;
 }
 
+.nodeWall {
+  background-color: darkslateblue;
+}
+
 .nodeVisited {
   background-color: rgba(0, 190, 218, 0.75);
   animation-name: visitedAnimation;
@@ -42,6 +46,27 @@
   }
 }
 
-.nodeWall {
-  background-color: darkslateblue;
+.nodeShortestPath {
+  background-color: rgba(255, 254, 106);
+  animation-name: shortestPath;
+  animation-duration: 1.5s;
+  animation-timing-function: ease-out;
+  animation-delay: 0;
+}
+
+@keyframes shortestPath {
+  0% {
+    transform: scale(0.3);
+    background-color: rgba(255, 254, 106);
+    border-radius: 100%;
+  }
+
+  50% {
+    background-color: rgba(255, 254, 106);
+  }
+
+  100% {
+    transform: scale(1);
+    background-color: rgba(255, 254, 106);
+  }
 }
