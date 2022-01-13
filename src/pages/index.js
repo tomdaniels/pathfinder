@@ -15,8 +15,8 @@ const START_NODE_COL = 10;
 const START_NODE_ROW = 10;
 
 // finish node position
-const FINISH_NODE_COL = 5;
-const FINISH_NODE_ROW = 15;
+const FINISH_NODE_COL = 65;
+const FINISH_NODE_ROW = 5;
 
 export default function PathFinder() {
   const [grid, setGrid] = useState([]);
@@ -57,7 +57,7 @@ export default function PathFinder() {
         document.getElementById(
           `node-${node.row}-${node.col}`
         ).className = `${nodeStyles.node} ${nodeStyles.nodeVisited}`;
-      }, 25 * i);
+      }, 10 * i);
     }
   }
 
