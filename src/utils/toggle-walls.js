@@ -7,7 +7,6 @@
  */
 function addWalls(grid, row, col) {
   const _grid = grid.slice();
-  console.log(_grid);
   const node = _grid[row][col];
   const _node = {
     ...node,

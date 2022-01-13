@@ -4,6 +4,7 @@ import { dijkstra } from "../algo/dijkstra";
 import Node from "../components/node";
 
 import styles from "../styles/Grid.module.css";
+import nodeStyles from "../styles/Node.module.css";
 
 // grid size
 const GRID_COL_LENGTH = 80;
@@ -14,7 +15,7 @@ const START_NODE_COL = 10;
 const START_NODE_ROW = 10;
 
 // finish node position
-const FINISH_NODE_COL = 65;
+const FINISH_NODE_COL = 5;
 const FINISH_NODE_ROW = 15;
 
 export default function PathFinder() {
@@ -49,11 +50,14 @@ export default function PathFinder() {
           isVisited: true,
         };
 
-        console.log(grid[node.row][node.col]);
-
         _grid[node.row][node.col] = _node;
-        setGrid(_grid);
-      }, 50 * i);
+
+        // this is a lil' gross... bit of a no no but a much better alternative
+        // to re-render the entire grid every 10ms.. maybe a ref would be better :thinking:
+        document.getElementById(
+          `node-${node.row}-${node.col}`
+        ).className = `${nodeStyles.node} ${nodeStyles.nodeVisited}`;
+      }, 25 * i);
     }
   }
 
@@ -65,7 +69,6 @@ export default function PathFinder() {
   }
 
   function handleMouseDown(row, col) {
-    console.log("rpowcol", row, col);
     const _grid = toggleWalls(grid, row, col);
     setGrid(_grid);
     setPressedMouse(true);
@@ -90,14 +93,13 @@ export default function PathFinder() {
         {grid.map((row, rowIdx) => (
           <div key={rowIdx}>
             {row.map((node, nodeIdx) => {
-              const { row, col, isStart, isFinish, isVisited, isWall } = node;
+              const { row, col, isStart, isFinish, isWall } = node;
               return (
                 <Node
                   key={nodeIdx}
                   isWall={isWall}
                   isStart={isStart}
                   isFinish={isFinish}
-                  isVisited={isVisited}
                   onMouseDown={handleMouseDown}
                   onMouseEnter={handleMouseEnter}
                   onMouseUp={handleMouseUp}
