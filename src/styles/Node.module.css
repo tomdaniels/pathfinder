@@ -12,3 +12,7 @@
 .nodeStart {
   background-color: green;
 }
+
+.nodeVisited {
+  background-color: blue;
+}

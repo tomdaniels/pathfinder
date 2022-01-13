@@ -6,16 +6,16 @@ import Node from "../components/node";
 import styles from "../styles/Grid.module.css";
 
 // grid size
-const GRID_COL_LENGTH = 25; // 110;
-const GRID_ROW_LENGTH = 10; // 35;
+const GRID_COL_LENGTH = 80;
+const GRID_ROW_LENGTH = 20;
 
 // start node position
-const START_NODE_COL = 2;
-const START_NODE_ROW = 4;
+const START_NODE_COL = 10;
+const START_NODE_ROW = 10;
 
 // finish node position
-const FINISH_NODE_COL = 18;
-const FINISH_NODE_ROW = 2;
+const FINISH_NODE_COL = 65;
+const FINISH_NODE_ROW = 15;
 
 export default function PathFinder() {
   const [grid, setGrid] = useState([]);
@@ -38,15 +38,33 @@ export default function PathFinder() {
     setGrid(cells);
   }, []);
 
+  function animate(visitedNodes) {
+    for (let i = 0; i < visitedNodes.length; i++) {
+      setTimeout(() => {
+        const node = visitedNodes[i];
+        const _grid = grid.slice();
+        const _node = {
+          ...node,
+          isVisited: true,
+        };
+
+        console.log(grid[node.row][node.col]);
+
+        _grid[node.row][node.col] = _node;
+        setGrid(_grid);
+      }, 50 * i);
+    }
+  }
+
   function visualiseDijkstra() {
     const startNode = grid[START_NODE_ROW][START_NODE_COL];
     const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
     const visitedNodesInOrder = dijkstra(grid, startNode, finishNode);
-    console.log(visitedNodesInOrder);
+    animate(visitedNodesInOrder);
   }
 
   return (
-    <>
+    <div className={styles.container}>
       <button onClick={() => visualiseDijkstra()}>
         {"Visualise Dijkstra's Algorithm"}
       </button>
@@ -54,21 +72,19 @@ export default function PathFinder() {
         {grid.map((row, rowIdx) => (
           <div key={rowIdx}>
             {row.map((node, nodeIdx) => {
-              const { isStart, isFinish } = node;
+              const { isStart, isFinish, isVisited } = node;
               return (
-                <React.Fragment key={nodeIdx}>
-                  <Node
-                    // row={rowIdx}
-                    // col={nodeIdx}
-                    isStart={isStart}
-                    isFinish={isFinish}
-                  />
-                </React.Fragment>
+                <Node
+                  key={nodeIdx}
+                  isStart={isStart}
+                  isFinish={isFinish}
+                  isVisited={isVisited}
+                />
               );
             })}
           </div>
         ))}
       </div>
-    </>
+    </div>
   );
 }
