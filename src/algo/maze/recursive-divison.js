@@ -1,5 +1,7 @@
 import nodeStyles from "../../styles/Node.module.css";
 
+const MAZE_PATH_SIZE = 4;
+
 function recursiveDivisionMaze(
   grid,
   rowStart,
@@ -36,11 +38,15 @@ function recursiveDivisionMaze(
   }
   if (orientation === "horizontal") {
     let possibleRows = [];
-    for (let number = rowStart; number <= rowEnd; number += 6) {
+    for (let number = rowStart; number <= rowEnd; number += MAZE_PATH_SIZE) {
       possibleRows.push(number);
     }
     let possibleCols = [];
-    for (let number = colStart - 1; number <= colEnd + 1; number += 6) {
+    for (
+      let number = colStart - 1;
+      number <= colEnd + 1;
+      number += MAZE_PATH_SIZE
+    ) {
       possibleCols.push(number);
     }
     let randomRowIndex = Math.floor(Math.random() * possibleRows.length);
@@ -115,11 +121,15 @@ function recursiveDivisionMaze(
     }
   } else {
     let possibleCols = [];
-    for (let number = colStart; number <= colEnd; number += 6) {
+    for (let number = colStart; number <= colEnd; number += MAZE_PATH_SIZE) {
       possibleCols.push(number);
     }
     let possibleRows = [];
-    for (let number = rowStart - 1; number <= rowEnd + 1; number += 6) {
+    for (
+      let number = rowStart - 1;
+      number <= rowEnd + 1;
+      number += MAZE_PATH_SIZE
+    ) {
       possibleRows.push(number);
     }
     let randomColIndex = Math.floor(Math.random() * possibleCols.length);
