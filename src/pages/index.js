@@ -111,6 +111,7 @@ export default function PathFinder() {
       row
         .filter((cell) => !(cell.isFinish || cell.isStart))
         .forEach((cell) => {
+          cell.isWall = false;
           const node = document.getElementById(`node-${cell.row}-${cell.col}`);
           node.className = `${nodeStyles.node}`;
         });
