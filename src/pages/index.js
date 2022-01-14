@@ -105,6 +105,7 @@ export default function PathFinder() {
       row
         .filter((cell) => !(cell.isFinish || cell.isStart))
         .forEach((cell) => {
+          cell.isVisited = false;
           cell.isWall = false;
           const node = document.getElementById(`node-${cell.row}-${cell.col}`);
           node.className = `${nodeStyles.node}`;
@@ -131,9 +132,7 @@ export default function PathFinder() {
 
   return (
     <div className={styles.container}>
-      <button disabled onClick={() => clear()}>
-        Clear (currently broke.. refresh)
-      </button>
+      <button onClick={() => clear()}>Clear</button>
       <button onClick={() => visualiseDijkstra()}>
         {"Visualise Dijkstra's Algorithm"}
       </button>
