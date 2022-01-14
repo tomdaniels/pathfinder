@@ -33,7 +33,7 @@ export default function PathFinder() {
 
   useEffect(() => {
     // build grid & set finish node using current browser width
-    const GRID_COL_LENGTH = window.innerWidth / 34;
+    const GRID_COL_LENGTH = window.innerWidth / 22;
     const FINISH_NODE_COL = Math.floor(GRID_COL_LENGTH - 10);
 
     // so our click handlers can access width based column..
