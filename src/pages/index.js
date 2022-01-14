@@ -60,7 +60,7 @@ export default function PathFinder() {
             `node-${node.row}-${node.col}`
           ).className = `${nodeStyles.node} ${nodeStyles.nodeShortestPath}`;
         }
-      }, 50 * i);
+      }, 55 * i);
     }
   }
 
@@ -69,7 +69,7 @@ export default function PathFinder() {
       if (i === visitedNodes.length) {
         setTimeout(() => {
           animateShortestPath(shortestPath);
-        }, 10 * i);
+        }, 15 * i);
         return;
       }
       setTimeout(() => {
@@ -82,7 +82,7 @@ export default function PathFinder() {
             `node-${node.row}-${node.col}`
           ).className = `${nodeStyles.node} ${nodeStyles.nodeVisited}`;
         }
-      }, 10 * i);
+      }, 15 * i);
     }
   }
 
