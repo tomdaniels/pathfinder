@@ -98,9 +98,9 @@ export default function PathFinder() {
     recursiveDivisionMaze(
       grid,
       2,
-      GRID_ROW_LENGTH,
+      GRID_ROW_LENGTH - 2,
       2,
-      gridColLength,
+      gridColLength - 3,
       "horizontal"
     );
     setActiveMaze(true);
