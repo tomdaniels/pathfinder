@@ -36,11 +36,11 @@ function recursiveDivisionMaze(
   }
   if (orientation === "horizontal") {
     let possibleRows = [];
-    for (let number = rowStart; number <= rowEnd; number += 4) {
+    for (let number = rowStart; number <= rowEnd; number += 6) {
       possibleRows.push(number);
     }
     let possibleCols = [];
-    for (let number = colStart - 1; number <= colEnd + 1; number += 4) {
+    for (let number = colStart - 1; number <= colEnd + 1; number += 6) {
       possibleCols.push(number);
     }
     let randomRowIndex = Math.floor(Math.random() * possibleRows.length);
@@ -115,11 +115,11 @@ function recursiveDivisionMaze(
     }
   } else {
     let possibleCols = [];
-    for (let number = colStart; number <= colEnd; number += 4) {
+    for (let number = colStart; number <= colEnd; number += 6) {
       possibleCols.push(number);
     }
     let possibleRows = [];
-    for (let number = rowStart - 1; number <= rowEnd + 1; number += 4) {
+    for (let number = rowStart - 1; number <= rowEnd + 1; number += 6) {
       possibleRows.push(number);
     }
     let randomColIndex = Math.floor(Math.random() * possibleCols.length);
