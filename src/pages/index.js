@@ -35,10 +35,6 @@ export default function PathFinder() {
   }
 
   useEffect(() => {
-    // cleanup handy for local dev..
-    clear();
-    setActiveMaze(false);
-
     // build grid & set finish node using current browser width
     const GRID_COL_LENGTH = Math.floor(window.innerWidth / 22);
     const FINISH_NODE_COL = Math.floor(GRID_COL_LENGTH - 10);
