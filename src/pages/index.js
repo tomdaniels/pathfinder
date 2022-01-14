@@ -137,7 +137,9 @@ export default function PathFinder() {
 
   return (
     <div className={styles.container}>
-      <button onClick={() => clear()}>Clear board</button>
+      <button disabled onClick={() => clear()}>
+        Clear (currently broke.. refresh)
+      </button>
       <button onClick={() => visualiseDijkstra()}>
         {"Visualise Dijkstra's Algorithm"}
       </button>
