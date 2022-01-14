@@ -140,7 +140,7 @@ function recursiveDivisionMaze(
             setTimeout(() => {
               currentHTMLNode.className = `${nodeStyles.node} ${nodeStyles.nodeWall}`;
               cell.isWall = true;
-            }, 50 * idx);
+            }, 35 * idx);
           }
         }
       });
