@@ -1,6 +1,6 @@
 import nodeStyles from "../../styles/Node.module.css";
 
-const MAZE_PATH_SIZE = 4;
+const MAZE_PATH_SIZE = 6;
 
 function recursiveDivisionMaze(
   grid,
