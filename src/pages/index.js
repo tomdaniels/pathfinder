@@ -14,6 +14,7 @@ const FINISH_NODE_ROW = 10;
 
 export default function PathFinder() {
   const [grid, setGrid] = useState([]);
+  const [activeMaze, setActiveMaze] = useState(false);
   const [gridColLength, setGridLength] = useState(0);
   const [finishNodeCol, setFinishNodeCol] = useState(0);
   const [pressedMouse, setPressedMouse] = useState(false);
@@ -94,7 +95,10 @@ export default function PathFinder() {
   }
 
   function generateMaze() {
-    const maze = recursiveDivisionMaze(
+    if (activeMaze) {
+      return;
+    }
+    recursiveDivisionMaze(
       grid,
       2,
       GRID_ROW_LENGTH,
@@ -102,7 +106,19 @@ export default function PathFinder() {
       gridColLength,
       "horizontal"
     );
-    console.log(maze);
+    setActiveMaze(true);
+  }
+
+  function clear() {
+    grid.forEach((row) => {
+      row
+        .filter((cell) => !(cell.isFinish || cell.isStart))
+        .forEach((cell) => {
+          const node = document.getElementById(`node-${cell.row}-${cell.col}`);
+          node.className = `${nodeStyles.node}`;
+        });
+    });
+    setActiveMaze(false);
   }
 
   function handleMouseDown(row, col) {
@@ -123,6 +139,7 @@ export default function PathFinder() {
 
   return (
     <div className={styles.container}>
+      <button onClick={() => clear()}>Clear board</button>
       <button onClick={() => visualiseDijkstra()}>
         {"Visualise Dijkstra's Algorithm"}
       </button>
