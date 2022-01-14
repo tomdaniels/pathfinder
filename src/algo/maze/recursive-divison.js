@@ -135,8 +135,8 @@ function recursiveDivisionMaze(
           r >= rowStart - 1 &&
           r <= rowEnd + 1
         ) {
-          let currentHTMLNode = document.getElementById(`node-${r}-${c}`);
           if (!cell.isStart && !cell.isFinish) {
+            let currentHTMLNode = document.getElementById(`node-${r}-${c}`);
             setTimeout(() => {
               currentHTMLNode.className = `${nodeStyles.node} ${nodeStyles.nodeWall}`;
               cell.isWall = true;
