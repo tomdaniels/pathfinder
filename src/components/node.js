@@ -6,6 +6,8 @@ export default function Node({
   isWall,
   isStart,
   isFinish,
+  isVisited,
+  isShortestPath,
   onMouseDown,
   onMouseEnter,
   onMouseUp,
@@ -14,8 +16,12 @@ export default function Node({
     ? styles.nodeFinish
     : isStart
     ? styles.nodeStart
+    : isVisited
+    ? styles.nodeVisited
     : isWall
     ? styles.nodeWall
+    : isShortestPath
+    ? styles.isShortestPath
     : "";
 
   return (

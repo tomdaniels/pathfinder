@@ -37,7 +37,8 @@ export default function PathFinder() {
   useEffect(() => {
     // build grid & set finish node using current browser width
     const GRID_COL_LENGTH = Math.floor(window.innerWidth / 22);
-    const FINISH_NODE_COL = Math.floor(GRID_COL_LENGTH - 10);
+    const FINISH_NODE_COL =
+      GRID_COL_LENGTH < 20 ? 2 : Math.floor(GRID_COL_LENGTH - 10);
 
     setGridLength(GRID_COL_LENGTH); // accessed from maze gen
     setFinishNodeCol(FINISH_NODE_COL); // accessed from click handlers
@@ -95,14 +96,7 @@ export default function PathFinder() {
   }
 
   function generateMaze() {
-    recursiveDivisionMaze(
-      grid,
-      2,
-      GRID_ROW_LENGTH - 2,
-      2,
-      gridColLength - 3,
-      "horizontal"
-    );
+    recursiveDivisionMaze(grid, 2, GRID_ROW_LENGTH - 2, 2, gridColLength - 3);
     setActiveMaze(true);
   }
 

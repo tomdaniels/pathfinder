@@ -1,6 +1,6 @@
 import nodeStyles from "../../styles/Node.module.css";
 
-const MAZE_PATH_SIZE = 6;
+const MAZE_PATH_SIZE = 4;
 
 function recursiveDivisionMaze(
   grid,
@@ -8,7 +8,7 @@ function recursiveDivisionMaze(
   rowEnd,
   colStart,
   colEnd,
-  orientation = "",
+  orientation = "vertical",
   surroundingWalls,
   type
 ) {
@@ -27,10 +27,9 @@ function recursiveDivisionMaze(
         ) {
           setTimeout(() => {
             let currentHTMLNode = document.getElementById(`node-${r}-${c}`);
-
             currentHTMLNode.className = `${nodeStyles.node} ${nodeStyles.nodeWall}`;
             cell.isWall = true;
-          }, 20 * idx);
+          }, 45 * idx);
         }
       });
     });
@@ -63,13 +62,13 @@ function recursiveDivisionMaze(
           c >= colStart - 1 &&
           c <= colEnd + 1
         ) {
-          setTimeout(() => {
-            if (!cell.isStart && !cell.isFinish) {
+          if (!cell.isStart && !cell.isFinish) {
+            setTimeout(() => {
               let currentHTMLNode = document.getElementById(`node-${r}-${c}`);
               currentHTMLNode.className = `${nodeStyles.node} ${nodeStyles.nodeWall}`;
               cell.isWall = true;
-            }
-          }, 30 * idx);
+            }, rowEnd * idx * 3);
+          }
         }
       });
     });
@@ -136,8 +135,8 @@ function recursiveDivisionMaze(
     let randomRowIndex = Math.floor(Math.random() * possibleRows.length);
     let currentCol = possibleCols[randomColIndex];
     let rowRandom = possibleRows[randomRowIndex];
-    grid.forEach((row) => {
-      row.forEach((cell, idx) => {
+    grid.forEach((row, idx) => {
+      row.forEach((cell) => {
         const { row: r, col: c } = cell;
         if (
           c === currentCol &&
@@ -145,13 +144,14 @@ function recursiveDivisionMaze(
           r >= rowStart - 1 &&
           r <= rowEnd + 1
         ) {
-          if (!cell.isStart && !cell.isFinish) {
-            let currentHTMLNode = document.getElementById(`node-${r}-${c}`);
-            setTimeout(() => {
+          setTimeout(() => {
+            if (!cell.isStart && !cell.isFinish) {
+              let currentHTMLNode = document.getElementById(`node-${r}-${c}`);
+              console.log("currentHTMLNode");
               currentHTMLNode.className = `${nodeStyles.node} ${nodeStyles.nodeWall}`;
               cell.isWall = true;
-            }, 35 * idx);
-          }
+            }
+          }, colEnd * idx * 3);
         }
       });
     });
