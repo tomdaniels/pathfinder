@@ -54,9 +54,11 @@ export default function PathFinder() {
     for (let i = 0; i < path.length; i++) {
       setTimeout(() => {
         const node = path[i];
-        document.getElementById(
-          `node-${node.row}-${node.col}`
-        ).className = `${nodeStyles.node} ${nodeStyles.nodeShortestPath}`;
+        if (!(node.isStart || node.isFinish)) {
+          document.getElementById(
+            `node-${node.row}-${node.col}`
+          ).className = `${nodeStyles.node} ${nodeStyles.nodeShortestPath}`;
+        }
       }, 50 * i);
     }
   }
@@ -74,9 +76,11 @@ export default function PathFinder() {
 
         // this is a lil' gross... bit of a no no but a much better alternative
         // to re-render the entire grid every 10ms.. maybe a ref would be better :thinking:
-        document.getElementById(
-          `node-${node.row}-${node.col}`
-        ).className = `${nodeStyles.node} ${nodeStyles.nodeVisited}`;
+        if (!(node.isStart || node.isFinish)) {
+          document.getElementById(
+            `node-${node.row}-${node.col}`
+          ).className = `${nodeStyles.node} ${nodeStyles.nodeVisited}`;
+        }
       }, 10 * i);
     }
   }
