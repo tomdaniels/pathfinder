@@ -99,9 +99,6 @@ export default function PathFinder() {
   }
 
   function generateMaze() {
-    if (activeMaze) {
-      return;
-    }
     recursiveDivisionMaze(
       grid,
       2,
@@ -147,7 +144,9 @@ export default function PathFinder() {
       <button onClick={() => visualiseDijkstra()}>
         {"Visualise Dijkstra's Algorithm"}
       </button>
-      <button onClick={() => generateMaze()}>Generate Maze</button>
+      <button disabled={activeMaze} onClick={() => generateMaze()}>
+        Generate Maze
+      </button>
       <div className={styles.grid}>
         {grid.map((row, rowIdx) => (
           <div key={rowIdx} className={styles.row}>
