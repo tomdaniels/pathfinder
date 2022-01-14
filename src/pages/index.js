@@ -13,6 +13,7 @@ const START_NODE_ROW = 15;
 const FINISH_NODE_ROW = 10;
 
 export default function PathFinder() {
+  const [render, renderFlag] = useState(false);
   const [grid, setGrid] = useState([]);
   const [activeMaze, setActiveMaze] = useState(false);
   const [gridColLength, setGridLength] = useState(0);
@@ -49,8 +50,8 @@ export default function PathFinder() {
       createNodeWithFinishCol(FINISH_NODE_COL)
     );
     setGrid(cells);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // intentional, once per render.
+    renderFlag(false);
+  }, [render]);
 
   function animateShortestPath(path) {
     for (let i = 0; i < path.length; i++) {
@@ -105,13 +106,16 @@ export default function PathFinder() {
       row
         .filter((cell) => !(cell.isFinish || cell.isStart))
         .forEach((cell) => {
+          cell.distance = Infinity;
           cell.isVisited = false;
+          cell.previousNode = null;
           cell.isWall = false;
           const node = document.getElementById(`node-${cell.row}-${cell.col}`);
           node.className = `${nodeStyles.node}`;
         });
     });
     setActiveMaze(false);
+    renderFlag(true);
   }
 
   function handleMouseDown(row, col) {
