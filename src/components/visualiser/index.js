@@ -1,17 +1,21 @@
 import React, { useState, useEffect } from "react";
-import { toggleWalls, generateGrid } from "../utils";
-import { dijkstra, getNodesInShortestPathOrder } from "../algo/dijkstra";
-import recursiveDivisionMaze from "../algo/maze/recursive-divison";
-import Node from "./node";
+import { toggleWalls, generateGrid } from "../../utils";
+import { dijkstra, getNodesInShortestPathOrder } from "../../algo/dijkstra";
+import { recursive } from "../../algo/maze";
+// import { MAZE_TYPES } from "../../constants";
+// import MazeGenerator from "./maze-generator";
+import ButtonGroup from "./button-group";
+import Node from "../node";
 
-import styles from "../styles/Grid.module.css";
-import nodeStyles from "../styles/Node.module.css";
+import styles from "../../styles/Grid.module.css";
+import nodeStyles from "../../styles/Node.module.css";
 
 export default function Visualiser({ gridCnfg }) {
   const [grid, setGrid] = useState([]);
+  const [locked, setLocked] = useState(false);
   const [render, renderFlag] = useState(false);
-  const [activeMaze, setActiveMaze] = useState(false);
   const [pressedMouse, setPressedMouse] = useState(false);
+  const [activeMaze, setActiveMaze] = useState(false);
 
   const {
     gridHeight: GRID_ROW_LENGTH,
@@ -93,7 +97,7 @@ export default function Visualiser({ gridCnfg }) {
     }
   }
 
-  function visualiseDijkstra() {
+  function visualiseAlgo() {
     const startNode = grid[START_NODE_ROW][START_NODE_COL];
     const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
     const visitedNodesInOrder = dijkstra(grid, startNode, finishNode);
@@ -102,7 +106,7 @@ export default function Visualiser({ gridCnfg }) {
   }
 
   function generateMaze() {
-    recursiveDivisionMaze(grid, 2, GRID_ROW_LENGTH - 2, 2, GRID_COL_LENGTH - 3);
+    recursive(grid, 2, GRID_ROW_LENGTH - 2, 2, GRID_COL_LENGTH - 3);
     setActiveMaze(true);
   }
 
@@ -111,6 +115,7 @@ export default function Visualiser({ gridCnfg }) {
       row
         .filter((cell) => !(cell.isFinish || cell.isStart))
         .forEach((cell) => {
+          cell.isWall = false;
           const node = document.getElementById(`node-${cell.row}-${cell.col}`);
           node.className = `${nodeStyles.node}`;
         });
@@ -137,15 +142,13 @@ export default function Visualiser({ gridCnfg }) {
 
   return (
     <div className={styles.container}>
-      <div className={styles.buttons}>
-        <button onClick={() => visualiseDijkstra()}>
-          {"Visualise Dijkstra's Algorithm"}
-        </button>
-        <button disabled={activeMaze} onClick={() => generateMaze()}>
-          Generate Maze
-        </button>
-        <button onClick={() => clear()}>Clear</button>
-      </div>
+      <ButtonGroup
+        visualiseAlgo={visualiseAlgo}
+        generateMaze={generateMaze}
+        activeMaze={activeMaze}
+        locked={locked}
+        onClear={clear}
+      />
       <div className={styles.grid}>
         {grid.map((row, rowIdx) => (
           <div key={rowIdx} className={styles.row}>
@@ -168,6 +171,7 @@ export default function Visualiser({ gridCnfg }) {
           </div>
         ))}
       </div>
+      {/* <MazeGenerator activeMaze={activeMaze} generateMaze={generateMaze} /> */}
     </div>
   );
 }
