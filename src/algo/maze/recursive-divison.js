@@ -1,6 +1,6 @@
 import nodeStyles from "../../styles/Node.module.css";
 
-const MAZE_PATH_SIZE = 4;
+const MAZE_COMPLEXITY = 2;
 
 function recursiveDivisionMaze(
   grid,
@@ -29,7 +29,7 @@ function recursiveDivisionMaze(
             let currentHTMLNode = document.getElementById(`node-${r}-${c}`);
             currentHTMLNode.className = `${nodeStyles.node} ${nodeStyles.nodeWall}`;
             cell.isWall = true;
-          }, 45 * idx);
+          }, 145 * idx);
         }
       });
     });
@@ -37,14 +37,14 @@ function recursiveDivisionMaze(
   }
   if (orientation === "horizontal") {
     let possibleRows = [];
-    for (let number = rowStart; number <= rowEnd; number += MAZE_PATH_SIZE) {
+    for (let number = rowStart; number <= rowEnd; number += MAZE_COMPLEXITY) {
       possibleRows.push(number);
     }
     let possibleCols = [];
     for (
       let number = colStart - 1;
       number <= colEnd + 1;
-      number += MAZE_PATH_SIZE
+      number += MAZE_COMPLEXITY
     ) {
       possibleCols.push(number);
     }
@@ -67,7 +67,7 @@ function recursiveDivisionMaze(
               let currentHTMLNode = document.getElementById(`node-${r}-${c}`);
               currentHTMLNode.className = `${nodeStyles.node} ${nodeStyles.nodeWall}`;
               cell.isWall = true;
-            }, rowEnd * idx * 3);
+            }, (20 + rowEnd) * idx * 3);
           }
         }
       });
@@ -120,14 +120,14 @@ function recursiveDivisionMaze(
     }
   } else {
     let possibleCols = [];
-    for (let number = colStart; number <= colEnd; number += MAZE_PATH_SIZE) {
+    for (let number = colStart; number <= colEnd; number += MAZE_COMPLEXITY) {
       possibleCols.push(number);
     }
     let possibleRows = [];
     for (
       let number = rowStart - 1;
       number <= rowEnd + 1;
-      number += MAZE_PATH_SIZE
+      number += MAZE_COMPLEXITY
     ) {
       possibleRows.push(number);
     }
@@ -151,7 +151,7 @@ function recursiveDivisionMaze(
               currentHTMLNode.className = `${nodeStyles.node} ${nodeStyles.nodeWall}`;
               cell.isWall = true;
             }
-          }, colEnd * idx * 3);
+          }, (100 + colEnd) * idx * 3);
         }
       });
     });
