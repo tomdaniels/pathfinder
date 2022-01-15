@@ -16,8 +16,6 @@ export default function PathFinder() {
   });
 
   useEffect(() => {
-    setInitialising(true);
-    // build grid with start&finish node using screen size
     const GRID_COL_LENGTH = Math.floor(window.innerWidth / 22);
     const GRID_ROW_LENGTH = Math.floor(window.innerHeight / 30);
 
