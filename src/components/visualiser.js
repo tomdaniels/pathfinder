@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Button } from "@chakra-ui/react";
 import { toggleWalls, generateGrid } from "../utils";
 import { dijkstra, getNodesInShortestPathOrder } from "../algo/dijkstra";
 import recursiveDivisionMaze from "../algo/maze/recursive-divison";
@@ -137,13 +138,17 @@ export default function Visualiser({ gridCnfg }) {
 
   return (
     <div className={styles.container}>
-      <button onClick={() => clear()}>Clear</button>
-      <button onClick={() => visualiseDijkstra()}>
-        {"Visualise Dijkstra's Algorithm"}
-      </button>
-      <button disabled={activeMaze} onClick={() => generateMaze()}>
-        Generate Maze
-      </button>
+      <div className={styles.buttons}>
+        <Button onClick={() => visualiseDijkstra()}>
+          {"Visualise Dijkstra's Algorithm"}
+        </Button>
+        <Button ml={4} disabled={activeMaze} onClick={() => generateMaze()}>
+          Generate Maze
+        </Button>
+        <Button ml={4} onClick={() => clear()}>
+          Clear
+        </Button>
+      </div>
       <div className={styles.grid}>
         {grid.map((row, rowIdx) => (
           <div key={rowIdx} className={styles.row}>

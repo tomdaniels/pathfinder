@@ -1,10 +1,5 @@
-.container {
-  text-align: center;
-}
-
 .grid {
-  margin: 40px 0 0;
-  text-align: center;
+  margin: 0 auto;
 }
 
 .row {
@@ -12,4 +7,33 @@
   justify-content: center;
   flex-wrap: nowrap;
   flex-shrink: 1;
+}
+
+.buttons {
+  width: 95%;
+  display: flex;
+  justify-content: flex-end;
+  margin: 20px 0;
+}
+
+.buttons > button {
+  opacity: 1;
+  animation-name: fadeIn;
+  animation-duration: 1.5s;
+  animation-timing-function: ease-in;
+  animation-delay: 1;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
