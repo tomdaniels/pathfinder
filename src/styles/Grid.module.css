@@ -16,6 +16,10 @@
   margin: 20px 0;
 }
 
+.buttons button:not(:first-child) {
+  margin-left: 5px;
+}
+
 .buttons > button {
   opacity: 1;
   animation-name: fadeIn;
