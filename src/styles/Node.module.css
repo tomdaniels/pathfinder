@@ -15,6 +15,10 @@
 
 .nodeWall {
   background-color: darkslateblue;
+}
+
+.drawWall {
+  background-color: darkslateblue;
   animation-name: drawWall;
   animation-duration: 1.5s;
   animation-timing-function: ease-out;

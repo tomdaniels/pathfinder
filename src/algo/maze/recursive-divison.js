@@ -26,7 +26,7 @@ function recursiveDivisionMaze(
         ) {
           setTimeout(() => {
             let currentHTMLNode = document.getElementById(`node-${r}-${c}`);
-            currentHTMLNode.className = `${nodeStyles.node} ${nodeStyles.nodeWall}`;
+            currentHTMLNode.className = `${nodeStyles.node} ${nodeStyles.drawWall}`;
             cell.isWall = true;
           }, 145 * idx);
         }
@@ -64,7 +64,7 @@ function recursiveDivisionMaze(
           if (!cell.isStart && !cell.isFinish) {
             setTimeout(() => {
               let currentHTMLNode = document.getElementById(`node-${r}-${c}`);
-              currentHTMLNode.className = `${nodeStyles.node} ${nodeStyles.nodeWall}`;
+              currentHTMLNode.className = `${nodeStyles.node} ${nodeStyles.drawWall}`;
               cell.isWall = true;
             }, (20 + rowEnd) * idx * 3);
           }
@@ -142,7 +142,7 @@ function recursiveDivisionMaze(
           setTimeout(() => {
             if (!cell.isStart && !cell.isFinish) {
               let currentHTMLNode = document.getElementById(`node-${r}-${c}`);
-              currentHTMLNode.className = `${nodeStyles.node} ${nodeStyles.nodeWall}`;
+              currentHTMLNode.className = `${nodeStyles.node} ${nodeStyles.drawWall}`;
               cell.isWall = true;
             }
           }, (100 + colEnd) * idx * 3);
