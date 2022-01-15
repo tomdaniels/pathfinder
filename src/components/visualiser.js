@@ -7,7 +7,7 @@ import Node from "./node";
 import styles from "../styles/Grid.module.css";
 import nodeStyles from "../styles/Node.module.css";
 
-export default function Visualiser({ landmarks }) {
+export default function Visualiser({ gridCnfg }) {
   const [grid, setGrid] = useState([]);
   const [render, renderFlag] = useState(false);
   const [activeMaze, setActiveMaze] = useState(false);
@@ -20,7 +20,7 @@ export default function Visualiser({ landmarks }) {
     startCol: START_NODE_COL,
     finishRow: FINISH_NODE_ROW,
     finishCol: FINISH_NODE_COL,
-  } = landmarks;
+  } = gridCnfg;
 
   function withStartAndFinishNode({ start, finish }) {
     // creates every cell/node shape, and sets start and finish specifically.
