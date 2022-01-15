@@ -22,8 +22,7 @@ export default function Visualiser({ gridCnfg }) {
     finishCol: FINISH_NODE_COL,
   } = gridCnfg;
 
-  function withStartAndFinishNode({ start, finish }) {
-    // creates every cell/node shape, and sets start and finish specifically.
+  function configureNodes({ start, finish }) {
     return function ({ col, row }) {
       return {
         col,
@@ -45,7 +44,7 @@ export default function Visualiser({ gridCnfg }) {
     const cells = generateGrid(
       GRID_ROW_LENGTH,
       GRID_COL_LENGTH,
-      withStartAndFinishNode({ start, finish })
+      configureNodes({ start, finish })
     );
 
     setGrid(cells);
