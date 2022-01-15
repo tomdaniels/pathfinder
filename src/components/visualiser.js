@@ -83,9 +83,8 @@ export default function Visualiser({ gridCnfg }) {
       setTimeout(() => {
         const node = visitedNodes[i];
 
-        // this is a lil' gross... bit of a no no but a much better alternative
-        // to re-render the entire grid every 10ms.. maybe a ref would be better :thinking:
         if (!(node.isStart || node.isFinish)) {
+          // this feels anti react... must be a "better" way to do this..
           document.getElementById(
             `node-${node.row}-${node.col}`
           ).className = `${nodeStyles.node} ${nodeStyles.nodeVisited}`;
