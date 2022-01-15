@@ -9,8 +9,7 @@ function recursiveDivisionMaze(
   colStart,
   colEnd,
   orientation = "vertical",
-  surroundingWalls,
-  type
+  surroundingWalls
 ) {
   if (rowEnd < rowStart || colEnd < colStart) {
     return;
@@ -79,9 +78,8 @@ function recursiveDivisionMaze(
         currentRow - 2,
         colStart,
         colEnd,
-        orientation,
-        surroundingWalls,
-        type
+        "vertical",
+        surroundingWalls
       );
     } else {
       recursiveDivisionMaze(
@@ -91,8 +89,7 @@ function recursiveDivisionMaze(
         colStart,
         colEnd,
         "vertical",
-        surroundingWalls,
-        type
+        surroundingWalls
       );
     }
     if (rowEnd - (currentRow + 2) > colEnd - colStart) {
@@ -102,9 +99,8 @@ function recursiveDivisionMaze(
         rowEnd,
         colStart,
         colEnd,
-        orientation,
-        surroundingWalls,
-        type
+        "vertical",
+        surroundingWalls
       );
     } else {
       recursiveDivisionMaze(
@@ -114,8 +110,7 @@ function recursiveDivisionMaze(
         colStart,
         colEnd,
         "vertical",
-        surroundingWalls,
-        type
+        surroundingWalls
       );
     }
   } else {
@@ -147,7 +142,6 @@ function recursiveDivisionMaze(
           setTimeout(() => {
             if (!cell.isStart && !cell.isFinish) {
               let currentHTMLNode = document.getElementById(`node-${r}-${c}`);
-              console.log("currentHTMLNode");
               currentHTMLNode.className = `${nodeStyles.node} ${nodeStyles.nodeWall}`;
               cell.isWall = true;
             }
@@ -164,8 +158,7 @@ function recursiveDivisionMaze(
         colStart,
         currentCol - 2,
         "horizontal",
-        surroundingWalls,
-        type
+        surroundingWalls
       );
     } else {
       recursiveDivisionMaze(
@@ -174,9 +167,8 @@ function recursiveDivisionMaze(
         rowEnd,
         colStart,
         currentCol - 2,
-        orientation,
-        surroundingWalls,
-        type
+        "vertical",
+        surroundingWalls
       );
     }
     if (rowEnd - rowStart > colEnd - (currentCol + 2)) {
@@ -187,8 +179,7 @@ function recursiveDivisionMaze(
         currentCol + 2,
         colEnd,
         "horizontal",
-        surroundingWalls,
-        type
+        surroundingWalls
       );
     } else {
       recursiveDivisionMaze(
@@ -197,9 +188,8 @@ function recursiveDivisionMaze(
         rowEnd,
         currentCol + 2,
         colEnd,
-        orientation,
-        surroundingWalls,
-        type
+        "vertical",
+        surroundingWalls
       );
     }
   }
