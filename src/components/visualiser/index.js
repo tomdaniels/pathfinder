@@ -113,10 +113,8 @@ export default function Visualiser({ gridCnfg }) {
   }
 
   function generateMaze() {
-    console.log("animating maze");
+    // TODO: need to track start & completion to lock the UI during build
     recursiveMaze(grid, 2, GRID_ROW_LENGTH - 3, 2, GRID_COL_LENGTH - 3);
-    console.log("finished maze");
-    setLocked(true);
   }
 
   function clear() {
