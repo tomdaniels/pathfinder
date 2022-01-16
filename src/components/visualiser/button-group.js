@@ -45,11 +45,11 @@ export default function ButtonGroup({
         >
           Clear
         </SegmentedControlOption>
-        <SegmentedControlOption value={TASK_TYPES.GEN_MAZE}>
-          Generate Maze
-        </SegmentedControlOption>
         <SegmentedControlOption value={TASK_TYPES.VISUALISE}>
           Visualise
+        </SegmentedControlOption>
+        <SegmentedControlOption value={TASK_TYPES.GEN_MAZE}>
+          Generate Maze
         </SegmentedControlOption>
       </SegmentedControl>
     </div>
