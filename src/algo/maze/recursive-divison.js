@@ -1,6 +1,6 @@
 import nodeStyles from "../../styles/Node.module.css";
 
-const MAZE_COMPLEXITY = 2;
+const MAZE_COMPLEXITY = 4;
 
 function recursiveDivisionMaze(
   grid,

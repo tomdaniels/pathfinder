@@ -103,7 +103,7 @@ export default function Visualiser({ gridCnfg }) {
   }
 
   function generateMaze() {
-    recursiveMaze(grid, 2, GRID_ROW_LENGTH - 2, 2, GRID_COL_LENGTH - 3);
+    recursiveMaze(grid, 2, GRID_ROW_LENGTH - 3, 2, GRID_COL_LENGTH - 3);
     setActiveMaze(true);
   }
 

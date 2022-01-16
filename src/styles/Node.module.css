@@ -82,6 +82,7 @@
 }
 
 .nodeShortestPath {
+  outline: none;
   background-color: rgba(255, 254, 106);
   animation-name: shortestPath;
   animation-duration: 1.5s;
