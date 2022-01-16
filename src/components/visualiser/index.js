@@ -10,9 +10,9 @@ import nodeStyles from "../../styles/Node.module.css";
 
 export default function Visualiser({ gridCnfg }) {
   const [grid, setGrid] = useState([]);
+  const [locked, setLocked] = useState(false);
   const [render, renderFlag] = useState(false);
   const [pressedMouse, setPressedMouse] = useState(false);
-  const [activeMaze, setActiveMaze] = useState(false);
 
   const {
     gridHeight: GRID_ROW_LENGTH,
@@ -61,7 +61,15 @@ export default function Visualiser({ gridCnfg }) {
   ]);
 
   function animateShortestPath(path) {
+    const DELAY = 55;
     for (let i = 0; i < path.length; i++) {
+      if (i === path.length - 1) {
+        setTimeout(() => {
+          console.log("path", path, i);
+          setLocked(false);
+          return;
+        }, DELAY * i);
+      }
       setTimeout(() => {
         const node = path[i];
         if (!(node.isStart || node.isFinish)) {
@@ -69,16 +77,18 @@ export default function Visualiser({ gridCnfg }) {
             `node-${node.row}-${node.col}`
           ).className = `${nodeStyles.node} ${nodeStyles.nodeShortestPath}`;
         }
-      }, 55 * i);
+      }, DELAY * i);
     }
   }
 
   function animate(visitedNodes, shortestPath) {
+    setLocked(true);
+    const DELAY = 15;
     for (let i = 0; i <= visitedNodes.length; i++) {
       if (i === visitedNodes.length) {
         setTimeout(() => {
           animateShortestPath(shortestPath);
-        }, 15 * i);
+        }, DELAY * i);
         return;
       }
       setTimeout(() => {
@@ -90,7 +100,7 @@ export default function Visualiser({ gridCnfg }) {
             `node-${node.row}-${node.col}`
           ).className = `${nodeStyles.node} ${nodeStyles.nodeVisited}`;
         }
-      }, 15 * i);
+      }, DELAY * i);
     }
   }
 
@@ -103,8 +113,10 @@ export default function Visualiser({ gridCnfg }) {
   }
 
   function generateMaze() {
+    console.log("animating maze");
     recursiveMaze(grid, 2, GRID_ROW_LENGTH - 3, 2, GRID_COL_LENGTH - 3);
-    setActiveMaze(true);
+    console.log("finished maze");
+    setLocked(true);
   }
 
   function clear() {
@@ -117,12 +129,12 @@ export default function Visualiser({ gridCnfg }) {
           node.className = `${nodeStyles.node}`;
         });
     });
-    setActiveMaze(false);
+    setLocked(false);
     renderFlag(true);
   }
 
   function handleMouseDown(row, col) {
-    if (activeMaze) return;
+    if (locked) return;
     const _grid = toggleWalls(grid, row, col);
     setGrid(_grid);
     setPressedMouse(true);
@@ -143,7 +155,7 @@ export default function Visualiser({ gridCnfg }) {
       <ButtonGroup
         visualiseAlgo={visualiseAlgo}
         generateMaze={generateMaze}
-        activeMaze={activeMaze}
+        locked={locked}
         clear={clear}
       />
       <div className={styles.grid}>

@@ -12,9 +12,9 @@ const TASK_TYPES = {
 };
 
 export default function ButtonGroup({
-  activeMaze,
   generateMaze,
   visualiseAlgo,
+  locked,
   clear,
 }) {
   const TASKS = {
@@ -33,22 +33,22 @@ export default function ButtonGroup({
         size={"default"}
         darkMode={false}
         followFocus={true}
-        disabled={activeMaze}
         defaultValue={TASK_TYPES.CLEAR}
         onChange={(type) => {
           handleTask(type);
         }}
       >
         <SegmentedControlOption
+          disabled={locked}
           onClick={() => clear()}
           value={TASK_TYPES.CLEAR}
         >
           Clear
         </SegmentedControlOption>
-        <SegmentedControlOption value={TASK_TYPES.VISUALISE}>
+        <SegmentedControlOption disabled={locked} value={TASK_TYPES.VISUALISE}>
           Visualise
         </SegmentedControlOption>
-        <SegmentedControlOption value={TASK_TYPES.GEN_MAZE}>
+        <SegmentedControlOption disabled={locked} value={TASK_TYPES.GEN_MAZE}>
           Generate Maze
         </SegmentedControlOption>
       </SegmentedControl>
