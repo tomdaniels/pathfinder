@@ -14,10 +14,16 @@
 }
 
 .nodeWall {
+  outline: none;
   background-color: darkslateblue;
 }
 
+.nodeActive {
+  background-color: yellow;
+}
+
 .drawWall {
+  outline: none;
   background-color: darkslateblue;
   animation-name: drawWall;
   animation-duration: 1.5s;
