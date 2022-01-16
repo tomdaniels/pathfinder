@@ -125,6 +125,7 @@ export default function Visualiser({ gridCnfg }) {
   }
 
   function handleMouseDown(row, col) {
+    if (activeMaze) return;
     const _grid = toggleWalls(grid, row, col);
     setGrid(_grid);
     setPressedMouse(true);
