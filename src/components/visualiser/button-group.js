@@ -33,6 +33,7 @@ export default function ButtonGroup({
         size={"default"}
         darkMode={false}
         followFocus={true}
+        aria-controls="grid-control"
         defaultValue={TASK_TYPES.CLEAR}
         onChange={(type) => {
           handleTask(type);
