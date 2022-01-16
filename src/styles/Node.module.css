@@ -18,10 +18,6 @@
   background-color: darkslateblue;
 }
 
-.nodeActive {
-  background-color: yellow;
-}
-
 .drawWall {
   outline: none;
   background-color: darkslateblue;
