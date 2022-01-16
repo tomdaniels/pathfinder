@@ -18,9 +18,9 @@ export default function ButtonGroup({
   clear,
 }) {
   const TASKS = {
-    [TASK_TYPES.VISUALISE]: visualiseAlgo,
-    [TASK_TYPES.GEN_MAZE]: generateMaze,
-    [TASK_TYPES.CLEAR]: clear,
+    [TASK_TYPES.VISUALISE]: () => visualiseAlgo(),
+    [TASK_TYPES.GEN_MAZE]: () => generateMaze(),
+    [TASK_TYPES.CLEAR]: () => clear(),
   };
 
   function handleTask(type) {

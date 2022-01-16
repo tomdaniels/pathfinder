@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { toggleWalls, generateGrid } from "../../utils";
 import { dijkstra, getNodesInShortestPathOrder } from "../../algo/dijkstra";
 import { recursive } from "../../algo/maze";
-// import { MAZE_TYPES } from "../../constants";
 import ButtonGroup from "./button-group";
 import Node from "../node";
 
@@ -11,7 +10,6 @@ import nodeStyles from "../../styles/Node.module.css";
 
 export default function Visualiser({ gridCnfg }) {
   const [grid, setGrid] = useState([]);
-  const [locked, setLocked] = useState(false);
   const [render, renderFlag] = useState(false);
   const [pressedMouse, setPressedMouse] = useState(false);
   const [activeMaze, setActiveMaze] = useState(false);
@@ -146,8 +144,7 @@ export default function Visualiser({ gridCnfg }) {
         visualiseAlgo={visualiseAlgo}
         generateMaze={generateMaze}
         activeMaze={activeMaze}
-        locked={locked}
-        onClear={clear}
+        clear={clear}
       />
       <div className={styles.grid}>
         {grid.map((row, rowIdx) => (
