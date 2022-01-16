@@ -39,7 +39,10 @@ export default function ButtonGroup({
           handleTask(type);
         }}
       >
-        <SegmentedControlOption value={TASK_TYPES.CLEAR}>
+        <SegmentedControlOption
+          onClick={() => clear()}
+          value={TASK_TYPES.CLEAR}
+        >
           Clear
         </SegmentedControlOption>
         <SegmentedControlOption value={TASK_TYPES.GEN_MAZE}>
