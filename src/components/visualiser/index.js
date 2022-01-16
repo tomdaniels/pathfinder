@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { toggleWalls, generateGrid } from "../../utils";
 import { dijkstra, getNodesInShortestPathOrder } from "../../algo/dijkstra";
-import { recursive } from "../../algo/maze";
+import recursiveMaze from "../../algo/maze/recursive-divison";
 import ButtonGroup from "./button-group";
 import Node from "../node";
 
@@ -103,7 +103,7 @@ export default function Visualiser({ gridCnfg }) {
   }
 
   function generateMaze() {
-    recursive(grid, 2, GRID_ROW_LENGTH - 2, 2, GRID_COL_LENGTH - 3);
+    recursiveMaze(grid, 2, GRID_ROW_LENGTH - 2, 2, GRID_COL_LENGTH - 3);
     setActiveMaze(true);
   }
 
