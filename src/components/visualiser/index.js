@@ -3,7 +3,6 @@ import { toggleWalls, generateGrid } from "../../utils";
 import { dijkstra, getNodesInShortestPathOrder } from "../../algo/dijkstra";
 import { recursive } from "../../algo/maze";
 // import { MAZE_TYPES } from "../../constants";
-// import MazeGenerator from "./maze-generator";
 import ButtonGroup from "./button-group";
 import Node from "../node";
 
@@ -172,7 +171,6 @@ export default function Visualiser({ gridCnfg }) {
           </div>
         ))}
       </div>
-      {/* <MazeGenerator activeMaze={activeMaze} generateMaze={generateMaze} /> */}
     </div>
   );
 }

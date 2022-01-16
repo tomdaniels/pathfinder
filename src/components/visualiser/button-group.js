@@ -1,20 +1,54 @@
-import Button from "@leafygreen-ui/button";
+import {
+  SegmentedControl,
+  SegmentedControlOption,
+} from "@leafygreen-ui/segmented-control";
 
 import styles from "../../styles/ButtonGroup.module.css";
 
+const TASK_TYPES = {
+  GEN_MAZE: "generate-maze",
+  VISUALISE: "visualise",
+  CLEAR: "clear",
+};
+
 export default function ButtonGroup({
-  visualiseAlgo,
-  generateMaze,
   activeMaze,
-  onClear,
+  generateMaze,
+  visualiseAlgo,
+  clear,
 }) {
+  const TASKS = {
+    [TASK_TYPES.VISUALISE]: visualiseAlgo,
+    [TASK_TYPES.GEN_MAZE]: generateMaze,
+    [TASK_TYPES.CLEAR]: clear,
+  };
+
+  function handleTask(type) {
+    TASKS[type]();
+  }
   return (
-    <div className={styles.buttons}>
-      <Button disabled={activeMaze} onClick={() => generateMaze()}>
-        Generate Maze
-      </Button>
-      <Button onClick={() => visualiseAlgo()}>Find path</Button>
-      <Button onClick={() => onClear()}>Clear</Button>
+    <div className={styles.container}>
+      <SegmentedControl
+        label="path visualiser"
+        size={"default"}
+        darkMode={false}
+        followFocus={true}
+        disabled={activeMaze}
+        defaultValue={TASK_TYPES.CLEAR}
+        onChange={(type) => {
+          handleTask(type);
+        }}
+      >
+        <SegmentedControlOption value={TASK_TYPES.CLEAR}>
+          Clear
+        </SegmentedControlOption>
+        <SegmentedControlOption value={TASK_TYPES.GEN_MAZE}>
+          Generate Maze
+        </SegmentedControlOption>
+        <SegmentedControlOption value={TASK_TYPES.VISUALISE}>
+          Visualise
+        </SegmentedControlOption>
+      </SegmentedControl>
     </div>
   );
 }

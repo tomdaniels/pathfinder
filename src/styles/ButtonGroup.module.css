@@ -1,16 +1,8 @@
-.buttons {
-  width: 95%;
+.container {
+  width: 90%;
   display: flex;
   justify-content: flex-end;
-  margin: 20px 0;
-}
-
-.buttons button:not(:first-child) {
-  margin-left: 5px;
-}
-
-.buttons > button > div {
-  opacity: 1;
+  margin: 20px auto;
   animation-name: fadeIn;
   animation-duration: 1.5s;
   animation-timing-function: ease-in;
