@@ -33,6 +33,7 @@ export default function Visualiser({ gridCnfg }) {
         distance: Infinity,
         isVisited: false,
         isWall: false,
+        isMaze: false,
         previousNode: null,
       };
     };
@@ -122,7 +123,6 @@ export default function Visualiser({ gridCnfg }) {
       GRID_COL_LENGTH - 3
     );
     maze.forEach((cell, idx) => {
-      console.log(cell);
       if (idx === maze.length - 1) {
         setTimeout(() => {
           setLocked(false);
@@ -139,6 +139,7 @@ export default function Visualiser({ gridCnfg }) {
   }
 
   function clear() {
+    setLocked(true);
     grid.forEach((row) => {
       row
         .filter((cell) => !(cell.isFinish || cell.isStart))
@@ -149,8 +150,11 @@ export default function Visualiser({ gridCnfg }) {
           node.className = `${nodeStyles.node}`;
         });
     });
-    setLocked(false);
-    renderFlag(true);
+
+    setTimeout(() => {
+      setLocked(false);
+      renderFlag(true);
+    }, 200);
   }
 
   function handleMouseDown(row, col) {
