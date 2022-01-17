@@ -185,11 +185,11 @@ export default function Visualiser({ gridCnfg }) {
       <div className={styles.grid}>
         {grid.map((row, rowIdx) => (
           <div key={rowIdx} className={styles.row}>
-            {row.map((node, nodeIdx) => {
+            {row.map((node) => {
               const { row, col, isStart, isFinish, isMaze, isWall } = node;
               return (
                 <Node
-                  key={nodeIdx}
+                  key={`${row}-${col}`}
                   isWall={isWall}
                   isMaze={isMaze}
                   isStart={isStart}
