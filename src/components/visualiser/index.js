@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { toggleWalls, generateGrid } from "../../utils";
+import { clearNodes, toggleWalls, generateGrid } from "../../utils";
 import { dijkstra, getNodesInShortestPathOrder } from "../../algo/dijkstra";
 import recursiveMaze from "../../algo/maze/recursive-divison";
 import ButtonGroup from "./button-group";
@@ -139,22 +139,16 @@ export default function Visualiser({ gridCnfg }) {
   }
 
   function clear() {
-    setLocked(true);
-    grid.forEach((row) => {
-      row
-        .filter((cell) => !(cell.isFinish || cell.isStart))
-        .forEach((cell) => {
-          cell.isWall = false;
-          cell.isMaze = false;
-          const node = document.getElementById(`node-${cell.row}-${cell.col}`);
-          node.className = `${nodeStyles.node}`;
-        });
-    });
-
-    setTimeout(() => {
-      setLocked(false);
-      renderFlag(true);
-    }, 200);
+    for (let row of grid) {
+      for (let cell of row) {
+        if (!(cell.isStart || cell.isFinish)) {
+          document.getElementById(
+            `node-${cell.row}-${cell.col}`
+          ).className = `${nodeStyles.node}`;
+        }
+      }
+    }
+    setGrid((_grid) => [...clearNodes(_grid)]);
   }
 
   function handleMouseDown(row, col) {
