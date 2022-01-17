@@ -18,7 +18,7 @@
   background-color: darkslateblue;
 }
 
-.drawWall {
+.nodeMaze {
   outline: none;
   background-color: darkslateblue;
   animation-name: drawWall;

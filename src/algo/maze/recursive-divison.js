@@ -1,7 +1,6 @@
-import nodeStyles from "../../styles/Node.module.css";
+const MAZE_COMPLEXITY = 2;
 
-const MAZE_COMPLEXITY = 4;
-
+const wallsToAnimate = [];
 function recursiveDivisionMaze(
   grid,
   rowStart,
@@ -12,7 +11,7 @@ function recursiveDivisionMaze(
   surroundingWalls
 ) {
   if (rowEnd < rowStart || colEnd < colStart) {
-    return;
+    return wallsToAnimate;
   }
   if (!surroundingWalls) {
     grid.forEach((row) => {
@@ -24,11 +23,7 @@ function recursiveDivisionMaze(
           r === grid.length - 1 ||
           c === row.length - 1
         ) {
-          setTimeout(() => {
-            let currentHTMLNode = document.getElementById(`node-${r}-${c}`);
-            currentHTMLNode.className = `${nodeStyles.node} ${nodeStyles.drawWall}`;
-            cell.isWall = true;
-          }, 145 * idx);
+          wallsToAnimate.push(cell);
         }
       });
     });
@@ -36,13 +31,17 @@ function recursiveDivisionMaze(
   }
   if (orientation === "horizontal") {
     let possibleRows = [];
-    for (let number = rowStart; number <= rowEnd; number += MAZE_COMPLEXITY) {
+    for (
+      let number = rowStart;
+      number <= rowEnd - 2;
+      number += MAZE_COMPLEXITY
+    ) {
       possibleRows.push(number);
     }
     let possibleCols = [];
     for (
       let number = colStart - 1;
-      number <= colEnd + 1;
+      number <= colEnd;
       number += MAZE_COMPLEXITY
     ) {
       possibleCols.push(number);
@@ -62,11 +61,7 @@ function recursiveDivisionMaze(
           c <= colEnd + 1
         ) {
           if (!cell.isStart && !cell.isFinish) {
-            setTimeout(() => {
-              let currentHTMLNode = document.getElementById(`node-${r}-${c}`);
-              currentHTMLNode.className = `${nodeStyles.node} ${nodeStyles.drawWall}`;
-              cell.isWall = true;
-            }, (20 + rowEnd) * idx * 3);
+            wallsToAnimate.push(cell);
           }
         }
       });
@@ -121,7 +116,7 @@ function recursiveDivisionMaze(
     let possibleRows = [];
     for (
       let number = rowStart - 1;
-      number <= rowEnd + 1;
+      number <= rowEnd;
       number += MAZE_COMPLEXITY
     ) {
       possibleRows.push(number);
@@ -139,13 +134,9 @@ function recursiveDivisionMaze(
           r >= rowStart - 1 &&
           r <= rowEnd + 1
         ) {
-          setTimeout(() => {
-            if (!cell.isStart && !cell.isFinish) {
-              let currentHTMLNode = document.getElementById(`node-${r}-${c}`);
-              currentHTMLNode.className = `${nodeStyles.node} ${nodeStyles.drawWall}`;
-              cell.isWall = true;
-            }
-          }, (100 + colEnd) * idx * 3);
+          if (!cell.isStart && !cell.isFinish) {
+            wallsToAnimate.push(cell);
+          }
         }
       });
     });
@@ -193,6 +184,7 @@ function recursiveDivisionMaze(
       );
     }
   }
+  return wallsToAnimate;
 }
 
 export default recursiveDivisionMaze;

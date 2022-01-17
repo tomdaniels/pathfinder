@@ -3,6 +3,7 @@ import styles from "../styles/Node.module.css";
 export default function Node({
   col,
   row,
+  isMaze,
   isWall,
   isStart,
   isFinish,
@@ -17,6 +18,8 @@ export default function Node({
     ? styles.nodeStart
     : isWall
     ? styles.nodeWall
+    : isMaze
+    ? styles.nodeMaze
     : isShortestPath
     ? styles.isShortestPath
     : "";

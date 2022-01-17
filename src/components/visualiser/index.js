@@ -65,7 +65,6 @@ export default function Visualiser({ gridCnfg }) {
     for (let i = 0; i < path.length; i++) {
       if (i === path.length - 1) {
         setTimeout(() => {
-          console.log("path", path, i);
           setLocked(false);
           return;
         }, DELAY * i);
@@ -113,8 +112,30 @@ export default function Visualiser({ gridCnfg }) {
   }
 
   function generateMaze() {
-    // TODO: need to track start & completion to lock the UI during build
-    recursiveMaze(grid, 2, GRID_ROW_LENGTH - 3, 2, GRID_COL_LENGTH - 3);
+    setLocked(true);
+    const DELAY = 10;
+    const maze = recursiveMaze(
+      grid,
+      2,
+      GRID_ROW_LENGTH - 2,
+      2,
+      GRID_COL_LENGTH - 3
+    );
+    maze.forEach((cell, idx) => {
+      console.log(cell);
+      if (idx === maze.length - 1) {
+        setTimeout(() => {
+          setLocked(false);
+        }, DELAY * idx);
+      }
+      setTimeout(() => {
+        cell.isWall = true;
+        cell.isMaze = true;
+        document.getElementById(
+          `node-${cell.row}-${cell.col}`
+        ).className = `${nodeStyles.node} ${nodeStyles.nodeMaze} ${nodeStyles.nodeWall}`;
+      }, DELAY * idx);
+    });
   }
 
   function clear() {
@@ -123,6 +144,7 @@ export default function Visualiser({ gridCnfg }) {
         .filter((cell) => !(cell.isFinish || cell.isStart))
         .forEach((cell) => {
           cell.isWall = false;
+          cell.isMaze = false;
           const node = document.getElementById(`node-${cell.row}-${cell.col}`);
           node.className = `${nodeStyles.node}`;
         });
@@ -160,11 +182,12 @@ export default function Visualiser({ gridCnfg }) {
         {grid.map((row, rowIdx) => (
           <div key={rowIdx} className={styles.row}>
             {row.map((node, nodeIdx) => {
-              const { row, col, isStart, isFinish, isWall } = node;
+              const { row, col, isStart, isFinish, isMaze, isWall } = node;
               return (
                 <Node
                   key={nodeIdx}
                   isWall={isWall}
+                  isMaze={isMaze}
                   isStart={isStart}
                   isFinish={isFinish}
                   onMouseDown={handleMouseDown}
