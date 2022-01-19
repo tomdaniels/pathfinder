@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { clearNodes, toggleWalls, generateGrid } from "../../utils";
 import { dijkstra, getNodesInShortestPathOrder } from "../../algo/dijkstra";
 import recursiveMaze from "../../algo/maze/recursive-divison";
+import updateNodeStyles from "../../utils/update-node-style";
 import ButtonGroup from "./button-group";
 import Node from "../node";
 
@@ -73,9 +74,10 @@ export default function Visualiser({ gridCnfg }) {
       setTimeout(() => {
         const node = path[i];
         if (!(node.isStart || node.isFinish)) {
-          document.getElementById(
-            `node-${node.row}-${node.col}`
-          ).className = `${nodeStyles.node} ${nodeStyles.nodeShortestPath}`;
+          updateNodeStyles(
+            `node-${node.row}-${node.col}`,
+            `${nodeStyles.node} ${nodeStyles.nodeShortestPath}`
+          );
         }
       }, DELAY * i);
     }
@@ -95,10 +97,10 @@ export default function Visualiser({ gridCnfg }) {
         const node = visitedNodes[i];
 
         if (!(node.isStart || node.isFinish)) {
-          // this feels anti react... must be a "better" way to do this..
-          document.getElementById(
-            `node-${node.row}-${node.col}`
-          ).className = `${nodeStyles.node} ${nodeStyles.nodeVisited}`;
+          updateNodeStyles(
+            `node-${node.row}-${node.col}`,
+            `${nodeStyles.node} ${nodeStyles.nodeVisited}`
+          );
         }
       }, DELAY * i);
     }
@@ -115,15 +117,15 @@ export default function Visualiser({ gridCnfg }) {
   function generateMaze() {
     setLocked(true);
     const DELAY = 10;
-    const maze = recursiveMaze(
+    const wallsToAnimate = recursiveMaze(
       grid,
       2,
       GRID_ROW_LENGTH - 2,
       2,
       GRID_COL_LENGTH - 3
     );
-    maze.forEach((cell, idx) => {
-      if (idx === maze.length - 1) {
+    wallsToAnimate.forEach((cell, idx) => {
+      if (idx === wallsToAnimate.length - 1) {
         setTimeout(() => {
           setLocked(false);
         }, DELAY * idx);
@@ -131,9 +133,10 @@ export default function Visualiser({ gridCnfg }) {
       setTimeout(() => {
         cell.isWall = true;
         cell.isMaze = true;
-        document.getElementById(
-          `node-${cell.row}-${cell.col}`
-        ).className = `${nodeStyles.node} ${nodeStyles.nodeMaze} ${nodeStyles.nodeWall}`;
+        updateNodeStyles(
+          `node-${cell.row}-${cell.col}`,
+          `${nodeStyles.node} ${nodeStyles.nodeMaze} ${nodeStyles.nodeWall}`
+        );
       }, DELAY * idx);
     });
   }
@@ -142,9 +145,10 @@ export default function Visualiser({ gridCnfg }) {
     for (let row of grid) {
       for (let cell of row) {
         if (!(cell.isStart || cell.isFinish)) {
-          document.getElementById(
-            `node-${cell.row}-${cell.col}`
-          ).className = `${nodeStyles.node}`;
+          updateNodeStyles(
+            `node-${cell.row}-${cell.col}`,
+            `${nodeStyles.node}`
+          );
         }
       }
     }
