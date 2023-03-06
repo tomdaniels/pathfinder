@@ -184,19 +184,16 @@ export default function Visualiser({ gridCnfg }) {
         {grid.map((row, rowIdx) => (
           <div key={rowIdx} className={styles.row}>
             {row.map((node) => {
-              const { row, col, isStart, isFinish, isMaze, isWall } = node;
+              const { row, col } = node;
               return (
                 <Node
                   key={`${row}-${col}`}
-                  isWall={isWall}
-                  isMaze={isMaze}
-                  isStart={isStart}
-                  isFinish={isFinish}
                   onMouseDown={handleMouseDown}
                   onMouseEnter={handleMouseEnter}
                   onMouseUp={handleMouseUp}
                   row={row}
                   col={col}
+                  {...node}
                 />
               );
             })}
