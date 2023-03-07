@@ -1,12 +1,24 @@
 .container {
   width: 90%;
   display: flex;
-  justify-content: flex-end;
-  margin: 20px auto;
+  gap: 12px;
+  justify-content: space-between;
+  margin: 20px auto 20px auto;
   animation-name: fadeIn;
   animation-duration: 1.5s;
   animation-timing-function: ease-in;
   animation-delay: 1;
+}
+
+.left {
+  display: flex;
+  gap: 12px;
+}
+
+.container button {
+  padding: 10px;
+  border-radius: 6px;
+  background-color: #fff;
 }
 
 @keyframes fadeIn {
