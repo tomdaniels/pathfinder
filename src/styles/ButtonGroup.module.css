@@ -2,6 +2,7 @@
   width: 90%;
   display: flex;
   gap: 12px;
+  align-items: center;
   justify-content: space-between;
   margin: 20px auto 20px auto;
   animation-name: fadeIn;
@@ -10,7 +11,7 @@
   animation-delay: 1;
 }
 
-.left {
+.right {
   display: flex;
   gap: 12px;
 }

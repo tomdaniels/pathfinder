@@ -179,7 +179,9 @@ export default function Visualiser({ gridCnfg }) {
         generateMaze={generateMaze}
         locked={locked}
         clear={clear}
-      />
+      >
+        Draw some walls or generate a maze
+      </ButtonGroup>
       <div className={styles.grid}>
         {grid.map((row, rowIdx) => (
           <div key={rowIdx} className={styles.row}>
