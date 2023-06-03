@@ -21,6 +21,18 @@
   border-radius: 6px;
   background-color: #fff;
 }
+.container button:hover {
+  padding: 10px;
+  border-radius: 6px;
+  background-color: #fff;
+  box-shadow: 1px 2px #eee;
+}
+
+.container button:disabled {
+  background-color: #eee;
+  cursor: not-allowed;
+  pointer-events: none;
+}
 
 @keyframes fadeIn {
   0% {
