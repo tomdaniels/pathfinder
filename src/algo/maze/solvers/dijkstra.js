@@ -1,5 +1,3 @@
-import nodeStyles from "../styles/Node.module.css";
-
 // Performs Dijkstra's algorithm; returns *all* nodes in the order
 // in which they were visited. Also makes nodes point back to their
 // previous node, effectively allowing us to compute the shortest path
@@ -15,10 +13,10 @@ export function dijkstra(grid, startNode, finishNode) {
     if (closestNode.isWall) continue;
     // If the closest node is at a distance of infinity,
     // we must be trapped and should therefore stop.
-    if (closestNode.distance === Infinity) return visitedNodesInOrder;
+    if (closestNode.distance === Infinity) return {visitedNodesInOrder, nodesInShortestPathOrder: getNodesInShortestPathOrder(finishNode)};
     closestNode.isVisited = true;
     visitedNodesInOrder.push(closestNode);
-    if (closestNode === finishNode) return visitedNodesInOrder;
+    if (closestNode === finishNode) return {visitedNodesInOrder, nodesInShortestPathOrder: getNodesInShortestPathOrder(finishNode)};
     updateUnvisitedNeighbors(closestNode, grid);
   }
 }

@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { clearNodes, toggleWalls, generateGrid } from "../../utils";
-import { dijkstra, getNodesInShortestPathOrder } from "../../algo/dijkstra";
-import recursiveMaze from "../../algo/maze/recursive-divison";
-import updateNodeStyles from "../../utils/update-node-style";
-import ButtonGroup from "./button-group";
+
+import recursiveDivisionMaze from "../../algo/maze/generators/recursive-divison";
+import mazeSolvers from "../../algo/maze/solvers";
+
 import Node from "../node";
+import ButtonGroup from "./button-group";
+
+import updateNodeStyles from "../../utils/update-node-style";
+import { clearNodes, toggleWalls, generateGrid } from "../../utils";
 
 import styles from "../../styles/Grid.module.css";
 import nodeStyles from "../../styles/Node.module.css";
@@ -106,18 +109,19 @@ export default function Visualiser({ gridCnfg }) {
     }
   }
 
-  function visualiseAlgo() {
+  function visualiseAlgo(type) {
     const startNode = grid[START_NODE_ROW][START_NODE_COL];
     const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
-    const visitedNodesInOrder = dijkstra(grid, startNode, finishNode);
-    const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
+
+    const solver = mazeSolvers.get(type)
+    const {visitedNodesInOrder, nodesInShortestPathOrder} = solver(grid, startNode, finishNode);
     animate(visitedNodesInOrder, nodesInShortestPathOrder);
   }
 
   function generateMaze() {
     setLocked(true);
     const DELAY = 10;
-    const wallsToAnimate = recursiveMaze(
+    const wallsToAnimate = recursiveDivisionMaze(
       grid,
       2,
       GRID_ROW_LENGTH - 2,
