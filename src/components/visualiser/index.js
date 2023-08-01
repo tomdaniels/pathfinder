@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import recursiveDivisionMaze from "../../algo/maze/generators/recursive-divison";
+import mazeGenerators from "../../algo/maze/generators";
 import mazeSolvers from "../../algo/maze/solvers";
 
 import Node from "../node";
@@ -118,10 +118,11 @@ export default function Visualiser({ gridCnfg }) {
     animate(visitedNodesInOrder, nodesInShortestPathOrder);
   }
 
-  function generateMaze() {
+  function generateMaze(type) {
     setLocked(true);
     const DELAY = 10;
-    const wallsToAnimate = recursiveDivisionMaze(
+    const generator = mazeGenerators.get(type)
+    const wallsToAnimate = generator(
       grid,
       2,
       GRID_ROW_LENGTH - 2,

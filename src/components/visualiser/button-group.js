@@ -11,7 +11,7 @@ export default function ButtonGroup({
   return (
     <div className={styles.container}>
       <div>
-        <button disabled={locked} onClick={() => generateMaze()}>
+        <button disabled={locked} onClick={() => generateMaze('recursive-division')}>
           Generate maze
         </button>
       </div>
