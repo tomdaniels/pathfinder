@@ -15,7 +15,6 @@ import nodeStyles from "../styles/Node.module.css";
 export default function Visualiser({ gridCnfg }) {
   const [grid, setGrid] = useState([]);
   const [locked, setLocked] = useState(false);
-  const [render, renderFlag] = useState(false);
   const [pressedMouse, setPressedMouse] = useState(false);
 
   const {
@@ -54,7 +53,6 @@ export default function Visualiser({ gridCnfg }) {
     );
 
     setGrid(cells);
-    renderFlag(false);
   }, [
     GRID_ROW_LENGTH,
     GRID_COL_LENGTH,
@@ -62,7 +60,6 @@ export default function Visualiser({ gridCnfg }) {
     START_NODE_COL,
     FINISH_NODE_ROW,
     FINISH_NODE_COL,
-    render,
   ]);
 
   function animateShortestPath(path) {
