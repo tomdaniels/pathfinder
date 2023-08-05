@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
 
-import mazeGenerators from "../../algo/maze/generators";
-import mazeSolvers from "../../algo/maze/solvers";
+import mazeGenerators from "../algo/maze/generators";
+import mazeSolvers from "../algo/maze/solvers";
 
-import Node from "../node";
+import Node from "./node";
 import ButtonGroup from "./button-group";
 
-import updateNodeStyles from "../../utils/update-node-style";
-import { clearNodes, toggleWalls, generateGrid } from "../../utils";
+import updateNodeStyles from "../utils/update-node-style";
+import { clearNodes, toggleWalls, generateGrid } from "../utils";
 
-import styles from "../../styles/Grid.module.css";
-import nodeStyles from "../../styles/Node.module.css";
+import styles from "../styles/Grid.module.css";
+import nodeStyles from "../styles/Node.module.css";
 
 export default function Visualiser({ gridCnfg }) {
   const [grid, setGrid] = useState([]);
@@ -113,15 +113,19 @@ export default function Visualiser({ gridCnfg }) {
     const startNode = grid[START_NODE_ROW][START_NODE_COL];
     const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
 
-    const solver = mazeSolvers.get(type)
-    const {visitedNodesInOrder, nodesInShortestPathOrder} = solver(grid, startNode, finishNode);
+    const solver = mazeSolvers.get(type);
+    const { visitedNodesInOrder, nodesInShortestPathOrder } = solver(
+      grid,
+      startNode,
+      finishNode
+    );
     animate(visitedNodesInOrder, nodesInShortestPathOrder);
   }
 
   function generateMaze(type) {
     setLocked(true);
     const DELAY = 10;
-    const generator = mazeGenerators.get(type)
+    const generator = mazeGenerators.get(type);
     const wallsToAnimate = generator(
       grid,
       2,

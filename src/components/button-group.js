@@ -1,4 +1,4 @@
-import styles from "../../styles/ButtonGroup.module.css";
+import styles from "../styles/ButtonGroup.module.css";
 
 export default function ButtonGroup({
   generateMaze,
@@ -11,16 +11,19 @@ export default function ButtonGroup({
   return (
     <div className={styles.container}>
       <div>
-        <button disabled={locked} onClick={() => generateMaze('recursive-division')}>
+        <button
+          disabled={locked}
+          onClick={() => generateMaze("recursive-division")}
+        >
           Generate maze
         </button>
       </div>
       {children}
       <div className={styles.right}>
-        <button disabled={locked} onClick={() => visualiseAlgo('dijkstra')}>
+        <button disabled={locked} onClick={() => visualiseAlgo("dijkstra")}>
           Solve using Dijkstra
         </button>
-        <button disabled={locked} onClick={() => visualiseAlgo('backtracker')}>
+        <button disabled={locked} onClick={() => visualiseAlgo("backtracker")}>
           Solve using recursive backtracking
         </button>
         <button disabled={locked} onClick={() => clear()}>

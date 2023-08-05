@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import Visualiser from "../components/visualiser";
+import Visualiser from "../components";
+
 import { randomNumberBetween } from "../utils";
 
 import styles from "../styles/Grid.module.css";
