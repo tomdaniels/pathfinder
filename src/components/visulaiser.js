@@ -4,7 +4,7 @@ import mazeGenerators from "../algo/maze/generators";
 import mazeSolvers from "../algo/maze/solvers";
 
 import Node from "./node";
-import ButtonGroup from "./button-group";
+import ControlGroup from "./control-group";
 
 import updateNodeStyles from "../utils/update-node-style";
 import { clearNodes, toggleWalls, generateGrid } from "../utils";
@@ -126,7 +126,7 @@ export default function Visualiser({ gridCnfg }) {
     const wallsToAnimate = generator(
       grid,
       2,
-      GRID_ROW_LENGTH - 2,
+      GRID_ROW_LENGTH - 1,
       2,
       GRID_COL_LENGTH - 3
     );
@@ -180,14 +180,10 @@ export default function Visualiser({ gridCnfg }) {
 
   return (
     <div className={styles.container}>
-      <ButtonGroup
-        visualiseAlgo={visualiseAlgo}
-        generateMaze={generateMaze}
-        locked={locked}
-        clear={clear}
-      >
-        Draw some walls or generate a maze
-      </ButtonGroup>
+      <div>
+        <h1>Pathfinder</h1>
+        <p>A maze generator and solver playground</p>
+      </div>
       <div className={styles.grid}>
         {grid.map((row, rowIdx) => (
           <div key={rowIdx} className={styles.row}>
@@ -208,6 +204,12 @@ export default function Visualiser({ gridCnfg }) {
           </div>
         ))}
       </div>
+      <ControlGroup
+        visualiseAlgo={visualiseAlgo}
+        generateMaze={generateMaze}
+        locked={locked}
+        clear={clear}
+      />
     </div>
   );
 }

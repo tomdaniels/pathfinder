@@ -1,10 +1,13 @@
-.grid {
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 98%;
   margin: 0 auto;
+  gap: 24px;
 }
 
 .row {
   display: flex;
   justify-content: center;
   flex-wrap: nowrap;
-  flex-shrink: 1;
 }

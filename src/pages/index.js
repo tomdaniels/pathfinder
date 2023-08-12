@@ -17,7 +17,7 @@ export default function PathFinder() {
   });
 
   useEffect(() => {
-    const GRID_COL_LENGTH = Math.floor(window.innerWidth / 22);
+    const GRID_COL_LENGTH = Math.floor(window.innerWidth / 20);
     const GRID_ROW_LENGTH = Math.floor(window.innerHeight / 30);
 
     setGridCnfg({

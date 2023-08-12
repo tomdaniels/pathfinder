@@ -6,10 +6,12 @@
 }
 
 .nodeFinish {
+  outline: none;
   background-color: red;
 }
 
 .nodeStart {
+  outline: none;
   background-color: green;
 }
 

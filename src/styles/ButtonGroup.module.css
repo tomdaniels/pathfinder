@@ -1,39 +1,34 @@
 .container {
-  width: 90%;
   display: flex;
-  gap: 12px;
-  align-items: center;
   justify-content: space-between;
-  margin: 20px auto 20px auto;
+  gap: 16px;
   animation-name: fadeIn;
   animation-duration: 1.5s;
   animation-timing-function: ease-in;
   animation-delay: 1;
 }
-
-.right {
-  display: flex;
-  gap: 12px;
-}
-
 .container button {
-  padding: 10px;
-  border-radius: 6px;
-  background-color: #fff;
+  border-radius: 50px;
+  color: #e7d7ad;
+  background-color: #665c54;
+  transform: scale(1);
 }
+
 .container button:hover {
-  padding: 10px;
-  border-radius: 6px;
-  background-color: #fff;
-  box-shadow: 1px 2px #eee;
+  box-shadow: 0 5px 2px #32302f;
+  animation: pop;
+  animation-duration: 1.5s;
+  animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+  transform: scale(1.1);
 }
+/* 
 
 .container button:disabled {
   background-color: #eee;
   cursor: not-allowed;
   pointer-events: none;
 }
-
+*/
 @keyframes fadeIn {
   0% {
     opacity: 0;
@@ -45,5 +40,11 @@
 
   100% {
     opacity: 1;
+  }
+}
+
+@keyframes pop {
+  50% {
+    transform: scale(1.1);
   }
 }
