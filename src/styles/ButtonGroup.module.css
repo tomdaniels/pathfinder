@@ -1,5 +1,6 @@
 .container {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   gap: 16px;
   animation-name: fadeIn;
@@ -7,8 +8,35 @@
   animation-timing-function: ease-in;
   animation-delay: 1;
 }
+
+.header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.header-text p {
+  color: #d79921;
+}
+
+.header-controls {
+  display: flex;
+  gap: 24px;
+}
+
+.solver-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.header-controls button {
+  padding: 16px;
+}
+
 .container button {
-  border-radius: 50px;
+  align-self: center;
+  border-radius: 18px;
   color: #e7d7ad;
   background-color: #665c54;
   transform: scale(1);
@@ -21,16 +49,14 @@
   animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
   transform: scale(1.1);
 }
-/* 
 
-.container button:disabled {
-  background-color: #eee;
-  cursor: not-allowed;
-  pointer-events: none;
+.solver-controls button {
+  width: 75%;
 }
-*/
+
 @keyframes fadeIn {
   0% {
+    transform: scale(0.99);
     opacity: 0;
   }
 

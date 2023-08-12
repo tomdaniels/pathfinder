@@ -10,22 +10,34 @@ export default function ControlGroup({
 }) {
   return (
     <div className={styles.container}>
-      <button
-        disabled={locked}
-        onClick={() => generateMaze("recursive-division")}
-      >
-        Generate a maze
-      </button>
-      <button disabled={locked} onClick={() => clear()}>
-        Clear
-      </button>
+      <div className={styles.header}>
+        <div className={styles["header-text"]}>
+          <h1>Pathfinder</h1>
+          <p>A maze generator and solver playground</p>
+        </div>
+        <div className={styles["header-controls"]}>
+          <button
+            disabled={locked}
+            onClick={() => generateMaze("recursive-division")}
+          >
+            Generate a maze
+          </button>
+          <button disabled={locked} onClick={() => clear()}>
+            Clear
+          </button>
+        </div>
+      </div>
 
-      <button disabled={locked} onClick={() => visualiseAlgo("dijkstra")}>
-        Solve using Dijkstra
-      </button>
-      <button disabled={locked} onClick={() => visualiseAlgo("backtracker")}>
-        Solve using recursive backtracking
-      </button>
+      {children}
+
+      <div className={styles["solver-controls"]}>
+        <button disabled={locked} onClick={() => visualiseAlgo("dijkstra")}>
+          Solve using Dijkstra
+        </button>
+        <button disabled={locked} onClick={() => visualiseAlgo("backtracker")}>
+          Solve using recursive backtracking
+        </button>
+      </div>
     </div>
   );
 }

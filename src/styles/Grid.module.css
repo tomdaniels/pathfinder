@@ -1,9 +1,6 @@
 .container {
-  display: flex;
-  flex-direction: column;
   width: 98%;
   margin: 0 auto;
-  gap: 24px;
 }
 
 .row {

@@ -180,36 +180,33 @@ export default function Visualiser({ gridCnfg }) {
 
   return (
     <div className={styles.container}>
-      <div>
-        <h1>Pathfinder</h1>
-        <p>A maze generator and solver playground</p>
-      </div>
-      <div className={styles.grid}>
-        {grid.map((row, rowIdx) => (
-          <div key={rowIdx} className={styles.row}>
-            {row.map((node) => {
-              const { row, col } = node;
-              return (
-                <Node
-                  key={`${row}-${col}`}
-                  onMouseDown={handleMouseDown}
-                  onMouseEnter={handleMouseEnter}
-                  onMouseUp={handleMouseUp}
-                  row={row}
-                  col={col}
-                  {...node}
-                />
-              );
-            })}
-          </div>
-        ))}
-      </div>
       <ControlGroup
         visualiseAlgo={visualiseAlgo}
         generateMaze={generateMaze}
         locked={locked}
         clear={clear}
-      />
+      >
+        <div className={styles.grid}>
+          {grid.map((row, rowIdx) => (
+            <div key={rowIdx} className={styles.row}>
+              {row.map((node) => {
+                const { row, col } = node;
+                return (
+                  <Node
+                    key={`${row}-${col}`}
+                    onMouseDown={handleMouseDown}
+                    onMouseEnter={handleMouseEnter}
+                    onMouseUp={handleMouseUp}
+                    row={row}
+                    col={col}
+                    {...node}
+                  />
+                );
+              })}
+            </div>
+          ))}
+        </div>
+      </ControlGroup>
     </div>
   );
 }

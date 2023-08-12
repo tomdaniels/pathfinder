@@ -22,7 +22,7 @@ a {
 
 p {
   margin: 0;
-  color: #d79921;
+  color: #e7d7ad;
   font-family: "Rubik", cursive;
 }
 
@@ -34,6 +34,11 @@ button {
   padding: 5px 18px;
   font-size: 18px;
   border: none;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  animation: none;
 }
 
 /* .grid {
