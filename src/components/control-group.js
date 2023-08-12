@@ -19,9 +19,7 @@ export default function ControlGroup({
       <button disabled={locked} onClick={() => clear()}>
         Clear
       </button>
-      <button disabled={locked} onClick={() => visualiseAlgo("dfs")}>
-        Solve using DFS
-      </button>
+
       <button disabled={locked} onClick={() => visualiseAlgo("dijkstra")}>
         Solve using Dijkstra
       </button>
