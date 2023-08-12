@@ -31,7 +31,7 @@ function recursiveDivisionMaze(...args) {
     }
     if (orientation === "horizontal") {
       let possibleRows = [];
-      for (let number = rowStart; number <= rowEnd - 2; number += 2) {
+      for (let number = rowStart; number <= rowEnd - 1; number += 2) {
         possibleRows.push(number);
       }
       let possibleCols = [];
@@ -53,6 +53,12 @@ function recursiveDivisionMaze(...args) {
             c <= colEnd + 1
           ) {
             if (!cell.isStart && !cell.isFinish) {
+              const neighbours = getNeighbours(grid, r, c);
+              if (neighbours.some((c) => c.isStart || c.isFinish)) {
+                // skip;
+                // do not mark this node as a wall it neighbours the start node and can trap the solvers.
+                return;
+              }
               wallsToAnimate.push(cell);
             }
           }
@@ -123,6 +129,12 @@ function recursiveDivisionMaze(...args) {
             r <= rowEnd + 1
           ) {
             if (!cell.isStart && !cell.isFinish) {
+              const neighbours = getNeighbours(grid, r, c);
+              if (neighbours.some((c) => c.isStart || c.isFinish)) {
+                // skip;
+                // do not mark this node as a wall it neighbours the start node and can trap the solvers.
+                return;
+              }
               wallsToAnimate.push(cell);
             }
           }
@@ -178,3 +190,29 @@ function recursiveDivisionMaze(...args) {
 }
 
 export default recursiveDivisionMaze;
+
+function getNeighbours(array, row, col) {
+  let neighbours = [];
+
+  // Check cell on the left
+  if (row > 0) {
+    neighbours.push(array[row - 1][col]);
+  }
+
+  // Check cell on the right
+  if (row < array.length - 1) {
+    neighbours.push(array[row + 1][col]);
+  }
+
+  // Check cell above
+  if (col > 0) {
+    neighbours.push(array[row][col - 1]);
+  }
+
+  // Check cell below
+  if (col < array[0].length - 1) {
+    neighbours.push(array[row][col + 1]);
+  }
+
+  return neighbours;
+}
