@@ -15,6 +15,8 @@ import nodeStyles from "../styles/Node.module.css";
 export default function Visualiser({ gridCnfg }) {
   const [grid, setGrid] = useState([]);
   const [locked, setLocked] = useState(false);
+  const [isSolved, setIsSolved] = useState(false);
+  const [mazeCreated, setMazeCreated] = useState(false);
   const [pressedMouse, setPressedMouse] = useState(false);
 
   const {
@@ -107,6 +109,7 @@ export default function Visualiser({ gridCnfg }) {
   }
 
   function visualiseAlgo(type) {
+    setIsSolved(true);
     const startNode = grid[START_NODE_ROW][START_NODE_COL];
     const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
 
@@ -121,6 +124,7 @@ export default function Visualiser({ gridCnfg }) {
 
   function generateMaze(type) {
     setLocked(true);
+    setMazeCreated(true);
     const DELAY = 10;
     const generator = mazeGenerators.get(type);
     const wallsToAnimate = generator(
@@ -151,9 +155,6 @@ export default function Visualiser({ gridCnfg }) {
     for (let row of grid) {
       for (let cell of row) {
         if (!(cell.isStart || cell.isFinish)) {
-          cell.isWall = false;
-          cell.isVisited = false;
-          cell.previousNode = false;
           updateNodeStyles(
             `node-${cell.row}-${cell.col}`,
             `${nodeStyles.node}`
@@ -162,6 +163,8 @@ export default function Visualiser({ gridCnfg }) {
       }
     }
     setGrid((_grid) => [...clearNodes(_grid)]);
+    setMazeCreated(false);
+    setIsSolved(false);
   }
 
   function handleMouseDown(row, col) {
@@ -186,6 +189,8 @@ export default function Visualiser({ gridCnfg }) {
       <ControlGroup
         visualiseAlgo={visualiseAlgo}
         generateMaze={generateMaze}
+        activeMaze={mazeCreated}
+        isSolved={isSolved}
         locked={locked}
         clear={clear}
       >

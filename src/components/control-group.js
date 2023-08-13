@@ -3,6 +3,8 @@ import styles from "../styles/ButtonGroup.module.css";
 export default function ControlGroup({
   generateMaze,
   visualiseAlgo,
+  activeMaze,
+  isSolved,
   locked,
   clear,
 
@@ -17,7 +19,7 @@ export default function ControlGroup({
         </div>
         <div className={styles["header-controls"]}>
           <button
-            disabled={locked}
+            disabled={locked || activeMaze}
             onClick={() => generateMaze("recursive-division")}
           >
             Generate a maze
@@ -31,10 +33,16 @@ export default function ControlGroup({
       {children}
 
       <div className={styles["solver-controls"]}>
-        <button disabled={locked} onClick={() => visualiseAlgo("dijkstra")}>
+        <button
+          disabled={locked || isSolved}
+          onClick={() => visualiseAlgo("dijkstra")}
+        >
           Solve using Dijkstra
         </button>
-        <button disabled={locked} onClick={() => visualiseAlgo("backtracker")}>
+        <button
+          disabled={locked || isSolved}
+          onClick={() => visualiseAlgo("backtracker")}
+        >
           Solve using recursive backtracking
         </button>
       </div>
