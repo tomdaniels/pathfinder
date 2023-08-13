@@ -27,10 +27,7 @@ export default function ControlGroup({
           >
             Generate a maze
           </button>
-          <button
-            disabled={!activeMaze || locked || isSolved}
-            onClick={() => clear()}
-          >
+          <button disabled={locked} onClick={() => clear()}>
             Clear
           </button>
         </div>
