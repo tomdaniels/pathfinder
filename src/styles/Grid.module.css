@@ -1,4 +1,5 @@
-.grid {
+.container {
+  width: 98%;
   margin: 0 auto;
 }
 
@@ -6,5 +7,4 @@
   display: flex;
   justify-content: center;
   flex-wrap: nowrap;
-  flex-shrink: 1;
 }

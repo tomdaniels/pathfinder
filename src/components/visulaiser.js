@@ -1,18 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { clearNodes, toggleWalls, generateGrid } from "../../utils";
-import { dijkstra, getNodesInShortestPathOrder } from "../../algo/dijkstra";
-import recursiveMaze from "../../algo/maze/recursive-divison";
-import updateNodeStyles from "../../utils/update-node-style";
-import ButtonGroup from "./button-group";
-import Node from "../node";
 
-import styles from "../../styles/Grid.module.css";
-import nodeStyles from "../../styles/Node.module.css";
+import mazeGenerators from "../algo/maze/generators";
+import mazeSolvers from "../algo/maze/solvers";
+
+import Node from "./node";
+import ControlGroup from "./control-group";
+
+import updateNodeStyles from "../utils/update-node-style";
+import { clearNodes, toggleWalls, generateGrid } from "../utils";
+
+import styles from "../styles/Grid.module.css";
+import nodeStyles from "../styles/Node.module.css";
 
 export default function Visualiser({ gridCnfg }) {
   const [grid, setGrid] = useState([]);
   const [locked, setLocked] = useState(false);
-  const [render, renderFlag] = useState(false);
+  const [isSolved, setIsSolved] = useState(false);
+  const [mazeCreated, setMazeCreated] = useState(false);
   const [pressedMouse, setPressedMouse] = useState(false);
 
   const {
@@ -51,7 +55,6 @@ export default function Visualiser({ gridCnfg }) {
     );
 
     setGrid(cells);
-    renderFlag(false);
   }, [
     GRID_ROW_LENGTH,
     GRID_COL_LENGTH,
@@ -59,7 +62,6 @@ export default function Visualiser({ gridCnfg }) {
     START_NODE_COL,
     FINISH_NODE_ROW,
     FINISH_NODE_COL,
-    render,
   ]);
 
   function animateShortestPath(path) {
@@ -106,21 +108,29 @@ export default function Visualiser({ gridCnfg }) {
     }
   }
 
-  function visualiseAlgo() {
+  function visualiseAlgo(type) {
+    setIsSolved(true);
     const startNode = grid[START_NODE_ROW][START_NODE_COL];
     const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
-    const visitedNodesInOrder = dijkstra(grid, startNode, finishNode);
-    const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
+
+    const solver = mazeSolvers.get(type);
+    const { visitedNodesInOrder, nodesInShortestPathOrder } = solver(
+      grid,
+      startNode,
+      finishNode
+    );
     animate(visitedNodesInOrder, nodesInShortestPathOrder);
   }
 
-  function generateMaze() {
+  function generateMaze(type) {
     setLocked(true);
+    setMazeCreated(true);
     const DELAY = 10;
-    const wallsToAnimate = recursiveMaze(
+    const generator = mazeGenerators.get(type);
+    const wallsToAnimate = generator(
       grid,
       2,
-      GRID_ROW_LENGTH - 2,
+      GRID_ROW_LENGTH - 1,
       2,
       GRID_COL_LENGTH - 3
     );
@@ -153,6 +163,8 @@ export default function Visualiser({ gridCnfg }) {
       }
     }
     setGrid((_grid) => [...clearNodes(_grid)]);
+    setMazeCreated(false);
+    setIsSolved(false);
   }
 
   function handleMouseDown(row, col) {
@@ -174,34 +186,35 @@ export default function Visualiser({ gridCnfg }) {
 
   return (
     <div className={styles.container}>
-      <ButtonGroup
+      <ControlGroup
         visualiseAlgo={visualiseAlgo}
         generateMaze={generateMaze}
+        activeMaze={mazeCreated}
+        isSolved={isSolved}
         locked={locked}
         clear={clear}
       >
-        Draw some walls or generate a maze
-      </ButtonGroup>
-      <div className={styles.grid}>
-        {grid.map((row, rowIdx) => (
-          <div key={rowIdx} className={styles.row}>
-            {row.map((node) => {
-              const { row, col } = node;
-              return (
-                <Node
-                  key={`${row}-${col}`}
-                  onMouseDown={handleMouseDown}
-                  onMouseEnter={handleMouseEnter}
-                  onMouseUp={handleMouseUp}
-                  row={row}
-                  col={col}
-                  {...node}
-                />
-              );
-            })}
-          </div>
-        ))}
-      </div>
+        <div className={styles.grid}>
+          {grid.map((row, rowIdx) => (
+            <div key={rowIdx} className={styles.row}>
+              {row.map((node) => {
+                const { row, col } = node;
+                return (
+                  <Node
+                    key={`${row}-${col}`}
+                    onMouseDown={handleMouseDown}
+                    onMouseEnter={handleMouseEnter}
+                    onMouseUp={handleMouseUp}
+                    row={row}
+                    col={col}
+                    {...node}
+                  />
+                );
+              })}
+            </div>
+          ))}
+        </div>
+      </ControlGroup>
     </div>
   );
 }

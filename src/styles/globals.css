@@ -1,9 +1,18 @@
 html,
 body {
+  background-color: #282828;
   padding: 0;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+h1 {
+  color: #d79921;
+  font-family: "Rubik", cursive;
+  font-size: 28px;
+  margin: 0;
+  margin-top: 20px;
 }
 
 a {
@@ -11,12 +20,27 @@ a {
   text-decoration: none;
 }
 
+p {
+  margin: 0;
+  color: #e7d7ad;
+  font-family: "Rubik", cursive;
+}
+
 * {
   box-sizing: border-box;
 }
 
-.grid {
-  display: flex;
-  flex-direction: column;
-  width: 100vw;
+button {
+  padding: 5px 14px;
+  font-size: 18px;
+  border: none;
+
+  background-color: #689d6a;
+}
+
+button:disabled {
+  cursor: not-allowed;
+
+  color: #504945;
+  background-color: #3c3836;
 }
