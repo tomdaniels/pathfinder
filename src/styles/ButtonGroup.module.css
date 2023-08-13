@@ -31,23 +31,35 @@
 }
 
 .header-controls button {
-  padding: 16px;
+  padding: 12px 16px;
+}
+
+.header-controls button:enabled:nth-child(1) {
+  color: #282828;
+  background-color: #e7d7ad;
+}
+
+.header-controls button:enabled:nth-child(2) {
+  background-color: #d4879c;
+  color: #282828;
 }
 
 .container button {
   align-self: center;
   border-radius: 18px;
-  color: #e7d7ad;
-  background-color: #665c54;
+}
+
+.container button:enabled {
+  background-color: #7fa2ac;
   transform: scale(1);
 }
 
-.container button:hover {
+.container button:hover:enabled {
   box-shadow: 0 5px 2px #32302f;
   animation: pop;
   animation-duration: 1.5s;
-  animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
-  transform: scale(1.1);
+  /* animation-timing-function: ease-in-out; */
+  transform: scale(1.02);
 }
 
 .solver-controls button {
@@ -71,6 +83,6 @@
 
 @keyframes pop {
   50% {
-    transform: scale(1.1);
+    transform: scale(1.02);
   }
 }

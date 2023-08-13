@@ -31,18 +31,16 @@ p {
 }
 
 button {
-  padding: 5px 18px;
+  padding: 5px 14px;
   font-size: 18px;
   border: none;
+
+  background-color: #689d6a;
 }
 
 button:disabled {
   cursor: not-allowed;
-  animation: none;
-}
 
-/* .grid {
-  display: flex;
-  flex-direction: column;
-  width: 100vw;
-} */
+  color: #504945;
+  background-color: #3c3836;
+}

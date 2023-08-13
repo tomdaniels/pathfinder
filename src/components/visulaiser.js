@@ -151,6 +151,9 @@ export default function Visualiser({ gridCnfg }) {
     for (let row of grid) {
       for (let cell of row) {
         if (!(cell.isStart || cell.isFinish)) {
+          cell.isWall = false;
+          cell.isVisited = false;
+          cell.previousNode = false;
           updateNodeStyles(
             `node-${cell.row}-${cell.col}`,
             `${nodeStyles.node}`
