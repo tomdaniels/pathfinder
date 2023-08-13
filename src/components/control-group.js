@@ -13,6 +13,8 @@ export default function ControlGroup({
 }) {
   const [showInfo, setShowInfo] = useState("");
 
+  const isSolveButtonDisabled = locked || isSolved;
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -41,7 +43,7 @@ export default function ControlGroup({
           onMouseLeave={() => setShowInfo("")}
         >
           <button
-            disabled={locked || isSolved}
+            disabled={isSolveButtonDisabled}
             onClick={() => visualiseAlgo("dijkstra")}
           >
             Solve using Dijkstra
@@ -57,12 +59,11 @@ export default function ControlGroup({
           )}
         </div>
         <div
-          onMouseEnter={() => setShowInfo("dijkstra")}
+          onMouseEnter={() => setShowInfo("backtracker")}
           onMouseLeave={() => setShowInfo("")}
         >
           <button
-            disabled={locked || isSolved}
-            onMouseEnter={() => setShowInfo("backtracker")}
+            disabled={isSolveButtonDisabled}
             onClick={() => visualiseAlgo("backtracker")}
           >
             Solve using recursive backtracking
